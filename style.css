@@ -6,7 +6,7 @@ body {
     margin: 0;
     padding: 0;
     font-family: Tahoma, sans-serif;
-    color: #0c1cff;
+    color: #ffffff;
     scrollbar-width: none;
     overflow-x: hidden;
 
@@ -15,7 +15,7 @@ body {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-
+    
     background-color: #000; /* fallback */
 }
 
@@ -104,7 +104,7 @@ body::-webkit-scrollbar {
     padding: 100px 40px 40px;
     text-align: center;
     font-family: Tahoma, sans-serif;
-    color: #000080;
+    color: #ffffff;
 }
 
 /* Windows XP border style */
@@ -118,3 +118,4 @@ img {
 hr {
     border: 1px solid #0c111b;
 }
+
