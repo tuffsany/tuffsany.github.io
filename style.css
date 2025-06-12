@@ -1,0 +1,161 @@
+body{
+    background:linear-gradient(#4a5663, #090a0c);
+    background-attachment: fixed; 
+    margin: 0;
+    padding: 0;
+    font-family:arial black, sans-serif;
+    text-align:center;
+    color:#f2f2f2;
+}
+
+body::-webkit-scrollbar{
+    display:none;
+}
+.header {
+    min-height:100vh;
+    width:100%;
+    background-image:url("https://i.ytimg.com/vi/OuY2Xajnyoo/maxresdefault.jpg"), linear-gradient(#f2f2f2, rgb(2, 26, 94));
+    background-size: cover;
+    background-attachment:fixed;
+    background-position:center;
+    background-repeat:no-repeat;
+}
+.aboutHeader {
+    min-height:100vh;
+    width:100%;
+    background-image:url("https://cdn.cloudflare.steamstatic.com/steam/apps/223710/ss_2c6067afbda80f61deb5b3c1da7041e57adbecf0.1920x1080.jpg?t=1643567513.jpg"), linear-gradient(#f2f2f2, rgb(2, 26, 94));
+    background-size: 150%;
+    background-attachment:fixed;
+    background-position:center;
+    background-repeat:no-repeat;
+}
+
+.careerHeader{
+    min-height:100vh;
+    width:100%;
+    background-image:url("https://goldplatedgames.files.wordpress.com/2017/08/cry2.jpg?w=860"), linear-gradient(#f2f2f2, rgb(2, 26, 94));
+    background-size: cover;
+    background-attachment:fixed;
+    background-position:center;
+    background-repeat:no-repeat;
+}
+
+.peopleHeader{
+    min-height:100vh;
+    width:100%;
+    background-image:url("https://steamuserimages-a.akamaihd.net/ugc/1550884775774256102/B2664E451CC356EC66CBB9712D29FAB2CB2732A4/?imw=637&imh=358&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=true"), linear-gradient(#f2f2f2, rgb(132, 148, 167));
+    background-size: cover;
+    background-attachment:fixed;
+    background-position:center;
+    background-repeat:no-repeat;
+}
+
+.activitiesHeader{
+    min-height:100vh;
+    width:100%;
+    background-image:url("https://images.igdb.com/igdb/image/upload/t_1080p/rpiagrelhhscy3i6nihb.png"), linear-gradient(#f2f2f2, rgb(2, 26, 94));
+    background-size: cover;
+    background-attachment:fixed;
+    background-position:center;
+    background-repeat:no-repeat;
+}
+
+.intersect{
+    background-color: rgba(10, 20, 59, 0.5);
+    background-blend-mode:multiply;
+    color:#f2f2f2;
+    width:90%;
+    position:absolute;
+    top:130%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    text-align:center;
+    
+}
+
+.intersect p{
+    font-size:15px;
+}
+
+.tint {
+    background-color:#f2f2f2;
+    background-blend-mode:multiply;
+    
+}
+.navbar{
+    list-style: none;
+    overflow: hidden;
+    background-color: rgba(10, 20, 59, 0.5);
+    background-blend-mode:multiply;
+}
+
+.navbar a {
+    display: inline-block;
+    margin-right: 10px;
+    float: right;
+    color: #f2f2f2;
+    text-align: right;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 30px;
+    font-style:italic;
+}
+
+.navbar a:hover{
+    color: #9bafc7;
+}
+
+.logo{
+    height:40px;
+    width:40px;
+    border:none;
+    box-shadow:none;
+    position: absolute;
+    left: 40px;
+    top: 55px;
+}
+
+.mainText{
+    color:#f2f2f2;
+    width:90%;
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    text-align:center;
+}
+
+.mainText h1{ 
+    color:#f2f2f2;
+    font-size:62px;
+}
+
+.mainText p{
+    margin:10px 0 40px;
+    color:#f2f2f2;
+}
+
+.game{
+    display:flex;
+    justify-content:space-evenly;
+}
+
+p {
+    font-size:15px;
+}
+
+h1{
+    font-size:30px;
+}
+
+img{
+    height:450px;
+    border-style:dotted;
+    border-width:3px;
+    border-color:#2b3578;
+    cursor: grab;
+}
+
+hr{
+    border: 1px solid #0c111b;
+}
