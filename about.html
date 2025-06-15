@@ -152,16 +152,34 @@
 
 .software-item {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 10px;
 }
 
+.software-text {
+  display: flex;
+  flex-direction: column;
+}
+.software-text h3 {
+  margin: 0 0 2px 0;
+  color: #ffffff;
+}
 .software-item img {
   width: 24px; 
   height: 24px;
 }
 
+.software-skills-list {
+  list-style: none; 
+  padding: 0;
+  margin: 0 0 10px;
+  font-size: 10px;
+  color: #ffffff;
+}
 
+.software-skills-list li {
+  margin: 1px 5px;
+}
 
   </style>
 </head>
@@ -236,18 +254,131 @@
       <div class="section">
         <h2>Software Skills</h2>
         <div class="grid">
+          
           <div class="software-item">
             <img src="images/logo/blender_icon_64x64.png" alt="Blender logo" />
-            <h3>Blender</h3>
+            <div class="software-text">
+              <h3>Blender</h3>
+              <ul class="software-skills-list">
+                <li>3D Modelling</li>
+                <li>Animation</li>
+                <li>Rendering</li>
+              </ul>
+            </div>
           </div>
-          <h3>Fusion 360</h3>
+
+          <div class="software-item">
+            <img src="images/logo/autodesk-fusion-360-seeklogo.png" alt="Fusion logo" />
+            <div class="software-text">
+              <h3>Fusion 360</h3>
+              <ul class="software-skills-list">
+                <li>3D Modelling</li>
+                <li>Drafting</li>
+                <li>Simulation</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="software-item">
+            <img src="images/logo/autocad-seeklogo.png" alt="AutoCAD logo" />
+            <div class="software-text">
+              <h3>AutoCAD</h3>
+              <ul class="software-skills-list">
+                <li>2D Drafting</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="software-item">
+            <img src="images/logo/photoshop_5968520.png" alt="Photoshop logo" />
+            <div class="software-text">
+              <h3>Adobe Photoshop</h3>
+              <ul class="software-skills-list">
+                <li>Image Editing</li>
+                <li>Marketing Material Design</li>
+                <li>Digital Art</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="software-item">
+            <img src="images/logo/illustrator_5968472.png" alt="Illustrator logo" />
+            <div class="software-text">
+              <h3>Adobe Illustrator</h3>
+              <ul class="software-skills-list">
+                <li>Vector Graphics</li>
+                <li>Logo Design</li>
+                <li>Digital Art</li>
+                <li>Marketing Asset Design</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="software-item">
+            <img src="images/logo/after-effects_5968428.png" alt="AE logo" />
+            <div class="software-text">
+              <h3>Adobe After Effects</h3>
+              <ul class="software-skills-list">
+                <li>Video Editing</li>
+                <li>Motion Graphics</li>
+                <li>Visual Effects</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="software-item">
+            <img src="images/logo/adobe-lightroom-icon.png" alt="Lightroom logo" />
+            <div class="software-text">
+              <h3>Adobe Lightroom</h3>
+              <ul class="software-skills-list">
+                <li>Photo Editing</li>
+                <li>Color Grading</li>
+                <li>Photo Management</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="software-item">
+            <img src="images/logo/adobe-indesign-seeklogo.png" alt="InDesign logo" />
+            <div class="software-text">
+              <h3>Adobe InDesign</h3>
+              <ul class="software-skills-list">
+                <li>UI/UX Design</li>
+                <li>Print Design</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="software-item">
+            <img src="images/logo/U_Cube_1C_Black-638x720-fbc0f9d.png" alt="Unity logo" />
+            <div class="software-text">
+              <h3>Unity</h3>
+              <ul class="software-skills-list">
+                <li>Game Development</li>
+              </ul>
+            </div>
+          </div>
+
         </div>
       </div>
 
       <div class="section">
-        <img class="logo-art" src="https://via.placeholder.com/600x200?text=DethTech+Logo" alt="Band Logo" />
-      </div>
-  </div>
+        <h2>Programming Languages</h2>
+        <div class="grid">
+          <p><b>Python</b></p>
+          <p><b>JavaScript</b></p>
+          <p><b>HTML/CSS</b></p>
+          <p><b>C#</b></p>
+          <p><b>C++</b></p>
+        </div>
+      <br></br>
+      <div class="section">
+        <h2>Other Skills</h2>
+        <div class="grid">
+          <p><b>Under construction...</b></p>
+          
+        </div>
+    </div>
   
 </body>
 </html>

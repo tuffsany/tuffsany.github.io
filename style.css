@@ -33,7 +33,7 @@ body::-webkit-scrollbar {
     position: relative;
 }
 
-/* XP-style navbar (taskbar-like) */
+
 .navbar {
     display: flex;
     justify-content: space-between;
@@ -48,13 +48,11 @@ body::-webkit-scrollbar {
     font-family: Tahoma, sans-serif;
 }
 
-/* Logo resembling Windows "Start" look */
 .logo {
     height: 36px;
     width: 36px;
 }
 
-/* Navigation links in XP-style */
 .nav-links {
     list-style: none;
     display: flex;
@@ -76,6 +74,8 @@ body::-webkit-scrollbar {
     background-color: #1e4d7b;
     color: #ffffff;
 }
+
+
 
 /* Main title area */
 .mainText {
@@ -109,8 +109,6 @@ body::-webkit-scrollbar {
 /* Windows XP border style */
 img {
     height: 450px;
-    border: 2px solid #2b5797;
-    box-shadow: 2px 2px 5px #888;
     cursor: default;
 }
 
