@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>The Gallery ₊˚⊹⋆</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+   *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    .gallery-section {
+      padding: 20px;
+      text-align: center;
+    }
+
+    .gallery-title {
+      font-size: 56px;
+        margin-bottom: 30px;
+        color: #ffffff;
+        text-shadow: 2px 2px 4px #000000;
+    }
+
+    #mz-gallery-container {
+      overflow: hidden;              /* hide scroll by default */
+    }
+
+    #mz-gallery {
+      display: flex;
+      gap: 1.5rem;
+      padding: 0 1.5rem;
+      overflow-x: hidden;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      transition: overflow 0.3s ease;
+    }
+
+    /* When you hover anywhere over the gallery, enable scrolling */
+    #mz-gallery:hover {
+      overflow-x: auto;
+    }
+
+    /* each image will snap into place */
+    #mz-gallery figure {
+      flex: 0 0 auto;
+      width: 300px;
+      scroll-snap-align: start;
+    }
+
+    #mz-gallery img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 4px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+    }
+
+    #mz-gallery figcaption {
+      margin-top: 0.5rem;
+      font-size: 1rem;
+      color: #ddd;
+    }
+  </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="index.html"><img class="logo" src="images/logosecondary.png" alt="Logo"></a>
+        <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="pg3.html">Placeholder</a></li>
+        <li><a href="pg4.html">Placeholder</a></li>
+        </ul>
+    </nav>
+    <section class="header">
+        <div class="mainText">
+        <h1>The Gallery</h1>
+        <p>Explore my Photography and Digital Art.</p>
+        </div>
+    </section>
+    <section class="gallery-section">
+        <h2 class="gallery-title">Photography</h2>
+            <div id="mz-gallery-container">
+                <div id="mz-gallery">
+                    <figure>
+                    <img src="https://i.imgur.com/NNYLto2" alt="asdasd">
+                    <figcaption>Statue of Liberty</figcaption>
+                    </figure>
+                    <figure>
+                    <img src="https://picsum.photos/id/537/700/700" alt="Night Sky">
+                    <figcaption>Night Sky</figcaption>
+                    </figure>
+                    <figure>
+                    <img src="https://picsum.photos/id/136/700/700" alt="Ravine Between Rocks">
+                    <figcaption>Ravine Between Rocks</figcaption>
+                    </figure>
+                    <figure>
+                    <img src="https://picsum.photos/id/818/700/700" alt="Statue of Liberty">
+                    <figcaption>Statue of Liberty</figcaption>
+                    </figure>
+                    <figure>
+                    <img src="https://picsum.photos/id/537/700/700" alt="Night Sky">
+                    <figcaption>Night Sky</figcaption>
+                    </figure>
+                    <figure>
+                    <img src="https://picsum.photos/id/136/700/700" alt="Ravine Between Rocks">
+                    <figcaption>Ravine Between Rocks</figcaption>
+                    </figure>
+                </div>
+            </div>
+    </section>
+    <section class="header">
+    </section>
+
+    <div class="mainText">
+        <p class="centered"><small>designed by tuffsany, 2025</small></p>
+    </div>
+</body>
+</html>
