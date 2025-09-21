@@ -1,0 +1,83 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import NavBar from "../components/NavBar.astro";
+import GallerySection from "../components/GallerySection.astro";
+import Lightbox from "../components/Lightbox.astro";
+import "../styles/gallery.css";
+
+const photography = [
+  { src: "/images/gallery/art/robotics/robotics-1.jpg", alt: "Photo 1", caption: "Nighthawks Robotics", group: "photo1" },
+  { src: "https://picsum.photos/id/1016/600/400", alt: "Photo 2", group: "photo2" }
+];
+
+const digitalArt = [
+  { src: "/images/gallery/art/Artboard 4.png", alt: "Silly Pets", caption: "Silly Pets", group: "art1" },
+  { src: "/images/gallery/art/lvespls.png", alt: "Love Spells Portrait", caption: "Love Spells", group: "art2" }
+];
+---
+
+<BaseLayout title="The Gallery ₊˚⊹⋆">
+  <NavBar />
+  <style>
+  .photo-pile {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
+    padding: 2rem;
+  }
+
+  .photo-card {
+    position: relative;
+    width: 220px;
+    height: 160px;
+    background: white;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    border: 5px solid #fff;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transform: rotate(var(--rotation));
+    cursor: pointer;
+  }
+
+  .photo-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .photo-card:hover {
+    transform: rotate(0deg) scale(1.05);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+    z-index: 10;
+  }
+</style>
+
+
+  <section class="header">
+    <div class="mainText">
+      <h1>The Gallery</h1>
+      <p>Explore my Photography and Digital Art.</p>
+      <div class="jump-buttons">
+        <a href="#photography">Go to Photography</a>
+        <a href="#art">Go to Art</a>
+      </div>
+    </div>
+  </section>
+
+  <GallerySection
+    id="photography"
+    title="Photography"
+    description="Click to zoom in."
+    items={photography}
+  />
+
+  <GallerySection
+    id="art"
+    title="Digital Art"
+    description="Created with Adobe Photoshop."
+    items={digitalArt}
+  />
+
+  <Lightbox />
+</BaseLayout>
