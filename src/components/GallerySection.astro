@@ -1,21 +1,24 @@
 ---
-interface Props {
-  id: string;
-  title: string;
-  description: string;
-  items: { src: string; alt: string; caption?: string; group: string }[];
-}
 const { id, title, description, items } = Astro.props;
+function getRandomRotation() {
+  const rotations = [-6, -4, -2, 2, 4, 6];
+  return rotations[Math.floor(Math.random() * rotations.length)];
+}
 ---
-<section class="gallery-section" id={id}>
-  <h2 class="gallery-title">{title}</h2>
-  <p class="gallery-description">{description}</p>
-  <div class="photos">
-    {items.map((item) => (
-      <a href="#" class="photo" data-group={item.group}>
+
+<section id={id} class="gallery-section">
+  <h2>{title}</h2>
+  <p>{description}</p>
+
+  <div class="photo-pile">
+    {items.map((item, index) => (
+      <div
+        class="photo-card photo"
+        data-group={item.group}
+        style={`--rotation: ${getRandomRotation()}deg`}
+      >
         <img src={item.src} alt={item.alt} />
-        {item.caption && <div class="caption">{item.caption}</div>}
-      </a>
+      </div>
     ))}
   </div>
 </section>
