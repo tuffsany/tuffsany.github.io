@@ -1,11 +1,33 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import BaseLayout from "../layouts/BaseLayout.astro";
+import NavBar from "../components/NavBar.astro";
+import "../styles/BaseStyle.css";
 ---
 
-<Layout>
-	<Welcome />
-</Layout>
+<BaseLayout title="Home">
+  <NavBar />
+
+  <section class="header">
+    <div class="mainText">
+      <h1>I am a <span class="auto-type"></span></h1>
+      <p>Welcome to my portfolio.</p>
+    </div>
+  </section>
+
+  <div class="mainText">
+    <p class="centered"><small>designed by tuffsany, 2025</small></p>
+  </div>
+
+  <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      new (window as any)['Typed'](".auto-type", {
+        strings: ["designer.", "photographer.", "developer.", "creator."],
+        typeSpeed: 50,
+        backSpeed: 25,
+        loop: true
+      });
+    });
+  </script>
+</BaseLayout>
