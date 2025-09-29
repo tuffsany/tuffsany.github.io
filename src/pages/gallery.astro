@@ -8,7 +8,7 @@ import "../styles/BaseStyle.css";
 
 // Image groups for lightbox
 const groups = {
-  photo1: [
+  team24: [
     { src: "/images/gallery/art/robotics/robotics24-1.jpg", alt: "Team 24124, Sturgeon Meet 1" },
     { src: "/images/gallery/art/robotics/robotics24-2.jpg", alt: "Team 24124, Sturgeon Meet 1" },
     { src: "/images/gallery/art/robotics/robotics24-3.jpg", alt: "Team 24124, Winter Pep Rally" },
@@ -18,7 +18,15 @@ const groups = {
     { src: "/images/gallery/art/robotics/robotics24-7.jpg", alt: "Team 24124, Provincial Championships" }
   ],
   team26: [
-    { src: "/images/gallery/art/robotics/robotics26-1.jpg", alt: "Team 26145, Sturgeon Meet 1" }
+    { src: "/images/gallery/art/robotics/robotics26-1.jpg", alt: "Team 26145, Sturgeon Meet 1" },
+    { src: "/images/gallery/art/robotics/robotics26-2.jpg", alt: "Team 26145, Provincial Championships" },
+  ],
+  robotics: [
+    { src: "/images/gallery/art/robotics/robotics-1.jpg", alt: "Team 22029, Provincial Championships" },
+    { src: "/images/gallery/art/robotics/robotics-2.jpg", alt: "Team 20715, Provincial Championships" },
+    { src: "/images/gallery/art/robotics/robotics-3.jpg", alt: "Alliance Selection, Provincial Championships" },
+    { src: "/images/gallery/art/robotics/robotics-4.jpg", alt: "Team 23684, Provincial Championships" },
+    { src: "/images/gallery/art/robotics/robotics-5.jpg", alt: "Team 20718, Provincial Championships" },
   ],
   art: [
     { src: "/images/gallery/art/Artboard 4.png", alt: "Silly Pets" },
@@ -27,14 +35,15 @@ const groups = {
 };
 
 // Preview items for stacked display
-const team24Preview = groups.photo1.slice(0, 5).map(item => ({ ...item, group: "team24" }));
-const team26Preview = groups.team26.map(item => ({ ...item, group: "team26" }));
+const team24Preview = groups.team24.slice(0, 5).map(item => ({ ...item, group: "team24" }));
+const team26Preview = groups.team26.slice(0, 5).map(item => ({ ...item, group: "team26" }));
+const roboticsPreview = groups.robotics.slice(0, 5).map(item => ({ ...item, group: "robotics" }));
 const digitalArt = groups.art.slice(0, 5).map(item => ({ ...item, group: "art" }));
 ---
 
 <script type="module">
   window.imageGroups = {
-    team24: [...groups.photo1],
+    team24: [...groups.team24],
     team26: [...groups.team26],
     art: [...groups.art]
   };
@@ -63,12 +72,15 @@ const digitalArt = groups.art.slice(0, 5).map(item => ({ ...item, group: "art" }
         <div class="folder-row">
           <div class="folder-block">
             <p class="folder-subtitle">Team 24124</p>
-            <Folder items={team24Preview} fullGroupItems={groups.photo1} group="team24" />
+            <Folder items={team24Preview} fullGroupItems={groups.team24} group="team24" />
           </div>
           <div class="folder-block">
             <p class="folder-subtitle">Team 26145</p>
             <Folder items={team26Preview} fullGroupItems={groups.team26} group="team26" />
           </div>
+          <div class="folder-block">
+            <p class="folder-subtitle">Robotics Events</p>
+            <Folder items={roboticsPreview} fullGroupItems={groups.robotics} group="robotics" />
         </div>
       </section>
 

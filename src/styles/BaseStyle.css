@@ -24,7 +24,7 @@ body {
   overflow-x: hidden;
   scrollbar-width: none;
 
-  background: #000 url("images/bg.jpg") center/cover fixed no-repeat;
+  background: url("/images/bg.jpg") center/cover fixed no-repeat;
 }
 
 body::-webkit-scrollbar {
