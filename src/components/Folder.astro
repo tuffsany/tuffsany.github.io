@@ -1,0 +1,100 @@
+---
+const { title, link, items } = Astro.props;
+const previewItems = items.slice(0, 3); // show 1–3 in the stack
+
+// Generate consistent rotation values
+const rotations = previewItems.map(() => Math.floor(Math.random() * 13) - 6); // -6 to 6 deg
+---
+
+<div>
+  <section id="list">
+    <h2>
+      {title}
+      {link && (
+        <a id="icon" style="font-size: 1rem;" href={link}>
+          <i class="fa-solid fa-link" aria-label="External link"></i>
+        </a>
+      )}
+    </h2>
+
+    {items && items.length > 0 ? (
+      <div class="photo-stack" data-images={JSON.stringify(items)}>
+        {previewItems.map((item, index) => {
+          const isTop = index === previewItems.length - 1;
+          return (
+            <div
+              key={item.src || index}
+              class={`stacked-photo ${isTop ? 'photo' : ''}`}
+              style={`--rotation: ${rotations[index]}deg; z-index: ${index};`}
+            >
+              <img src={item.src} alt={item.alt || 'Photo'} />
+            </div>
+          );
+        })}
+      </div>
+    ) : (
+      <p>A little empty at the moment...</p>
+    )}
+  </section>
+</div>
+
+<style>
+#list {
+  margin: 2rem auto;
+  max-width: 800px;
+  padding: 1rem;
+  text-align: center;
+}
+
+h2 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 1.8rem;
+}
+
+#icon {
+  color: #fff;
+  text-shadow: 1px 1px 2px #000;
+}
+
+.photo-stack {
+  position: relative;
+  width: 100%;
+  max-width: 240px;
+  aspect-ratio: 4 / 3;
+  margin: 2rem auto;
+}
+
+.stacked-photo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 5px solid #fff;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+  background: #fff;
+  transform: rotate(var(--rotation));
+  transform-origin: center center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.stacked-photo.photo {
+  cursor: pointer;
+}
+
+.stacked-photo.photo:hover {
+  transform: rotate(0deg) scale(1.05);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.4);
+  z-index: 10;
+}
+
+.stacked-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+</style>

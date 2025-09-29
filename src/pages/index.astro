@@ -1,28 +1,29 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import NavBar from "../components/NavBar.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
 import "../styles/BaseStyle.css";
 ---
 
 <BaseLayout title="Home">
-  <NavBar />
+  <div id="page">
+    <Header />
 
-  <section class="header">
-    <div class="mainText">
-      <h1>I am a <span class="auto-type"></span></h1>
-      <p>Welcome to my portfolio.</p>
+
+    <div id="content">
+      <div class="mainText">
+        <h1>I am a <span class="auto-type"></span></h1>
+        <p>Welcome to my portfolio!</p>
+      </div>
     </div>
-  </section>
 
-  <div class="mainText">
-    <p class="centered"><small>designed by tuffsany, 2025</small></p>
+    <Footer />
   </div>
 
   <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
-
   <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      new (window as any)['Typed'](".auto-type", {
+    document.addEventListener("DOMContentLoaded", () => {
+      new (window as any).Typed(".auto-type", {
         strings: ["designer.", "photographer.", "developer.", "creator."],
         typeSpeed: 50,
         backSpeed: 25,

@@ -1,0 +1,58 @@
+---
+--- 
+
+<style>
+header {
+  width: 100%;
+  padding: 0.8rem 2rem;
+  font-family: Tahoma, sans-serif;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+
+  display: flex;
+  justify-content: space-between; /* logo left, nav right */
+  align-items: center;
+}
+
+/* Logo */
+header .logo {
+  height: 40px;
+  width: 40px;
+  cursor: pointer;
+}
+
+/* Navigation */
+nav {
+  display: flex;
+  gap: 2rem;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+nav a {
+  text-decoration: none;
+  color: #fff;
+  text-shadow: 2px 2px 2px #000;
+  transition: transform 0.2s ease, color 0.3s ease;
+  padding: 1px 8px;
+}
+
+nav a:hover {
+  transform: translateY(-3px);
+  color: #ccc;
+}
+</style>
+
+<header>
+  <!-- Logo -->
+  <img class="logo" src="images/house.png" alt="Logo" />
+
+  <!-- Navigation -->
+  <nav>
+    <a href="/">Home</a>
+    <a href="/about">About Me</a>
+    <a href="/gallery">Gallery</a>
+  </nav>
+</header>

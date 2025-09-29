@@ -1,0 +1,120 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import Folder from "../components/Folder.astro";
+import Lightbox from "../components/Lightbox.astro";
+import Footer from "../components/Footer.astro";
+import "../styles/BaseStyle.css";
+
+// Image groups for lightbox
+const groups = {
+  photo1: [
+    { src: "/images/gallery/art/robotics/robotics-1.jpg", alt: "Team 24124, Sturgeon Meet 1" },
+    { src: "/images/gallery/art/robotics/robotics-3.jpg", alt: "Team 24124, Sturgeon Meet 1" },
+    { src: "/images/gallery/art/robotics/robotics-2.jpg", alt: "Team 26145, Sturgeon Meet 1" },
+    { src: "/images/gallery/art/robotics/robotics-4.jpg", alt: "Team 24124, Winter Pep Rally" },
+    { src: "/images/gallery/art/robotics/robotics-5.jpg", alt: "Team 24124, Winter Pep Rally" },
+    { src: "/images/gallery/art/robotics/robotics-6.jpg", alt: "Team 24124, Robotics Room" },
+    { src: "/images/gallery/art/robotics/robotics-7.jpg", alt: "Team 24124, Robotics Room" },
+    { src: "/images/gallery/art/robotics/robotics-8.jpg", alt: "Team 24124, Provincial Championships" },
+    { src: "/images/gallery/art/robotics/robotics-9.jpg", alt: "Team 24124, Provincial Championships" }
+  ],
+  art: [
+    { src: "/images/gallery/art/Artboard 4.png", alt: "Silly Pets" },
+    { src: "/images/gallery/art/lvespls.png", alt: "Love Spells Portrait" }
+  ]
+};
+
+// Preview items for stacked display
+const photography = groups.photo1.slice(0, 3).map(item => ({ ...item, group: "photo1" }));
+const digitalArt = groups.art.slice(0, 3).map(item => ({ ...item, group: "art" }));
+---
+
+<script type="module">
+  import lightbox from '../scripts/lightbox.js';
+  window.imageGroups = {
+    photo1: [
+      { src: "/images/gallery/art/robotics/robotics-1.jpg", alt: "Team 24124, Sturgeon Meet 1" },
+      { src: "/images/gallery/art/robotics/robotics-3.jpg", alt: "Team 24124, Sturgeon Meet 1" },
+      { src: "/images/gallery/art/robotics/robotics-2.jpg", alt: "Team 26145, Sturgeon Meet 1" },
+      { src: "/images/gallery/art/robotics/robotics-4.jpg", alt: "Team 24124, Winter Pep Rally" },
+      { src: "/images/gallery/art/robotics/robotics-5.jpg", alt: "Team 24124, Winter Pep Rally" },
+      { src: "/images/gallery/art/robotics/robotics-6.jpg", alt: "Team 24124, Robotics Room" },
+      { src: "/images/gallery/art/robotics/robotics-7.jpg", alt: "Team 24124, Robotics Room" },
+      { src: "/images/gallery/art/robotics/robotics-8.jpg", alt: "Team 24124, Provincial Championships" },
+      { src: "/images/gallery/art/robotics/robotics-9.jpg", alt: "Team 24124, Provincial Championships" }
+    ],
+    art: [
+      { src: "/images/gallery/art/Artboard 4.png", alt: "Silly Pets" },
+      { src: "/images/gallery/art/lvespls.png", alt: "Love Spells Portrait" }
+    ]
+  };
+  document.addEventListener('DOMContentLoaded', () => lightbox());
+</script>
+
+<BaseLayout title="The Gallery.">
+  <div id="page">
+    <Header />
+
+    <div id="content">
+      <section class="intro">
+        <div class="mainText">
+          <h1>The Gallery.</h1>
+          <p>Explore my Photography and Digital Art.</p>
+
+          <div class="jump-buttons">
+            <a href="#photography">Go to Photography</a>
+            <a href="#art">Go to Art</a>
+          </div>
+        </div>
+      </section>
+
+      <section id="photography" class="jump-target">
+        <Folder title="Photography" items={photography} group="photo1" />
+      </section>
+
+      <section id="art" class="jump-target">
+        <Folder title="Digital Art" items={digitalArt} group="art" />
+      </section>
+
+      <Lightbox />
+    </div>
+
+    <Footer />
+  </div>
+</BaseLayout>
+
+<style>
+  .jump-buttons {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+  }
+
+  .jump-buttons a {
+    text-shadow: 2px 2px 4px #000000;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+    color: #fff;
+    border-bottom: 2px solid #1e4d7b;
+    padding: 10px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background 0.3s ease, transform 0.12s ease;
+  }
+
+  .jump-buttons a:hover {
+    background-color: #1e4d7b;
+    transform: translateY(-3px);
+  }
+
+  .intro {
+    min-height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 2rem;
+  }
+</style>
