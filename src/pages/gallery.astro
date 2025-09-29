@@ -9,15 +9,16 @@ import "../styles/BaseStyle.css";
 // Image groups for lightbox
 const groups = {
   photo1: [
-    { src: "/images/gallery/art/robotics/robotics-1.jpg", alt: "Team 24124, Sturgeon Meet 1" },
-    { src: "/images/gallery/art/robotics/robotics-3.jpg", alt: "Team 24124, Sturgeon Meet 1" },
-    { src: "/images/gallery/art/robotics/robotics-2.jpg", alt: "Team 26145, Sturgeon Meet 1" },
-    { src: "/images/gallery/art/robotics/robotics-4.jpg", alt: "Team 24124, Winter Pep Rally" },
-    { src: "/images/gallery/art/robotics/robotics-5.jpg", alt: "Team 24124, Winter Pep Rally" },
-    { src: "/images/gallery/art/robotics/robotics-6.jpg", alt: "Team 24124, Robotics Room" },
-    { src: "/images/gallery/art/robotics/robotics-7.jpg", alt: "Team 24124, Robotics Room" },
-    { src: "/images/gallery/art/robotics/robotics-8.jpg", alt: "Team 24124, Provincial Championships" },
-    { src: "/images/gallery/art/robotics/robotics-9.jpg", alt: "Team 24124, Provincial Championships" }
+    { src: "/images/gallery/art/robotics/robotics24-1.jpg", alt: "Team 24124, Sturgeon Meet 1" },
+    { src: "/images/gallery/art/robotics/robotics24-2.jpg", alt: "Team 24124, Sturgeon Meet 1" },
+    { src: "/images/gallery/art/robotics/robotics24-3.jpg", alt: "Team 24124, Winter Pep Rally" },
+    { src: "/images/gallery/art/robotics/robotics24-4.jpg", alt: "Team 24124, Winter Pep Rally" },
+    { src: "/images/gallery/art/robotics/robotics24-5.jpg", alt: "Team 24124, Robotics Room" },
+    { src: "/images/gallery/art/robotics/robotics24-6.jpg", alt: "Team 24124, Robotics Room" },
+    { src: "/images/gallery/art/robotics/robotics24-7.jpg", alt: "Team 24124, Provincial Championships" }
+  ],
+  team26: [
+    { src: "/images/gallery/art/robotics/robotics26-1.jpg", alt: "Team 26145, Sturgeon Meet 1" }
   ],
   art: [
     { src: "/images/gallery/art/Artboard 4.png", alt: "Silly Pets" },
@@ -26,28 +27,16 @@ const groups = {
 };
 
 // Preview items for stacked display
-const photography = groups.photo1.slice(0, 3).map(item => ({ ...item, group: "photo1" }));
-const digitalArt = groups.art.slice(0, 3).map(item => ({ ...item, group: "art" }));
+const team24Preview = groups.photo1.slice(0, 5).map(item => ({ ...item, group: "team24" }));
+const team26Preview = groups.team26.map(item => ({ ...item, group: "team26" }));
+const digitalArt = groups.art.slice(0, 5).map(item => ({ ...item, group: "art" }));
 ---
 
 <script type="module">
-  import lightbox from '../scripts/lightbox.js';
   window.imageGroups = {
-    photo1: [
-      { src: "/images/gallery/art/robotics/robotics-1.jpg", alt: "Team 24124, Sturgeon Meet 1" },
-      { src: "/images/gallery/art/robotics/robotics-3.jpg", alt: "Team 24124, Sturgeon Meet 1" },
-      { src: "/images/gallery/art/robotics/robotics-2.jpg", alt: "Team 26145, Sturgeon Meet 1" },
-      { src: "/images/gallery/art/robotics/robotics-4.jpg", alt: "Team 24124, Winter Pep Rally" },
-      { src: "/images/gallery/art/robotics/robotics-5.jpg", alt: "Team 24124, Winter Pep Rally" },
-      { src: "/images/gallery/art/robotics/robotics-6.jpg", alt: "Team 24124, Robotics Room" },
-      { src: "/images/gallery/art/robotics/robotics-7.jpg", alt: "Team 24124, Robotics Room" },
-      { src: "/images/gallery/art/robotics/robotics-8.jpg", alt: "Team 24124, Provincial Championships" },
-      { src: "/images/gallery/art/robotics/robotics-9.jpg", alt: "Team 24124, Provincial Championships" }
-    ],
-    art: [
-      { src: "/images/gallery/art/Artboard 4.png", alt: "Silly Pets" },
-      { src: "/images/gallery/art/lvespls.png", alt: "Love Spells Portrait" }
-    ]
+    team24: [...groups.photo1],
+    team26: [...groups.team26],
+    art: [...groups.art]
   };
   document.addEventListener('DOMContentLoaded', () => lightbox());
 </script>
@@ -70,11 +59,25 @@ const digitalArt = groups.art.slice(0, 3).map(item => ({ ...item, group: "art" }
       </section>
 
       <section id="photography" class="jump-target">
-        <Folder title="Photography" items={photography} group="photo1" />
+        <h2 class="section-title">Photography</h2>
+        <div class="folder-row">
+          <div class="folder-block">
+            <p class="folder-subtitle">Team 24124</p>
+            <Folder items={team24Preview} fullGroupItems={groups.photo1} group="team24" />
+          </div>
+          <div class="folder-block">
+            <p class="folder-subtitle">Team 26145</p>
+            <Folder items={team26Preview} fullGroupItems={groups.team26} group="team26" />
+          </div>
+        </div>
       </section>
 
       <section id="art" class="jump-target">
-        <Folder title="Digital Art" items={digitalArt} group="art" />
+        <h2 class="section-title">Digital Art</h2>
+        <div class="folder-block">
+          <p class="folder-subtitle">Featured</p>
+          <Folder items={digitalArt} fullGroupItems={groups.art} group="art" />
+        </div>
       </section>
 
       <Lightbox />
@@ -116,5 +119,35 @@ const digitalArt = groups.art.slice(0, 3).map(item => ({ ...item, group: "art" }
     align-items: center;
     text-align: center;
     padding: 2rem;
+  }
+
+  .section-title {
+    text-align: center;
+    font-size: 2.2rem;
+    margin-top: 4rem;
+    margin-bottom: 2rem;
+    color: #ffffff;
+    text-shadow: 2px 2px 4px #000;
+  }
+
+  .folder-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+
+  .folder-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .folder-subtitle {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+    color: #ffffff;
+    text-shadow: 2px 2px 5px #000000;
   }
 </style>
