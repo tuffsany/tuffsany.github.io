@@ -12,6 +12,17 @@ const { title } = Astro.props;
     <meta charset="UTF-8" />
     <title>{title}</title>
   </head>
+  
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-P2JC3ENBL0"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-P2JC3ENBL0');
+  </script>
+
   <body>
     <slot />
   </body>

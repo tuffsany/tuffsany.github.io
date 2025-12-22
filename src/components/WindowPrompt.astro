@@ -1,0 +1,107 @@
+---
+const { startTop = 100, startLeft = 50, title = "Prompt" } = Astro.props;
+---
+<div class="prompt" style={`top: ${startTop}px; left: ${startLeft}px;`}>
+  <div class="prompt-header">
+    <span class="prompt-title">{title}</span>
+  </div>
+
+  <div class="prompt-body">
+    <slot />
+  </div>
+</div>
+
+<style is:global>
+.prompt {
+  user-select: none;
+  width: 100%;
+  max-width: 500px;
+  color: #1d1d1d;
+  position: absolute;
+  cursor: default;
+  filter: drop-shadow(2px 2px 4px #353535);
+}
+
+.prompt-header {
+  height: 55px;
+  background-image: url("images/ui/prompt-header.svg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  cursor: grab;
+}
+
+.prompt-title {
+  color: #6b6b6b;
+  font-size: 12px;
+  margin-left: 65px;
+  margin-top: 25px;
+}
+
+.prompt-body {
+  background-color: #f1f2f2;
+  padding: 10px;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+  line-height: 1.5;
+  
+  position: relative;
+}
+
+.prompt-body:has(.prompt-image) {
+  padding-right: 317px;
+}
+
+
+.prompt-body p {
+  text-align: left;
+  font-size: 15px;
+}
+
+.prompt-image {
+  position: absolute;
+  right: 12px;
+  top: 12px;
+  width: 300px;
+  height: 300px;
+  border-radius: 15px;
+  user-select: none;
+  pointer-events: none;
+}
+
+
+
+
+
+</style>
+
+<script>
+document.querySelectorAll('.prompt').forEach((prompt) => {
+  const handle = prompt.querySelector('.prompt-header');
+  let offsetX = 0;
+  let offsetY = 0;
+  let isDragging = false;
+
+  handle.addEventListener("mousedown", (e) => {
+    isDragging = true;
+    offsetX = e.clientX - prompt.offsetLeft;
+    offsetY = e.clientY - prompt.offsetTop;
+    handle.style.cursor = "grabbing";
+  });
+
+  document.addEventListener("mousemove", (e) => {
+    if (!isDragging) return;
+    prompt.style.left = `${e.clientX - offsetX}px`;
+    prompt.style.top = `${e.clientY - offsetY}px`;
+  });
+
+  document.addEventListener("mouseup", () => {
+    isDragging = false;
+    handle.style.cursor = "grab";
+  });
+});
+</script>

@@ -1,0 +1,39 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import WindowPrompt from "../components/WindowPrompt.astro";
+---
+<BaseLayout title="Home">
+  <div id="page">
+    <Header />
+    
+    <WindowPrompt startTop={100} startLeft={200} title="Contact Me!">
+      <div class="link-grid">
+        <a href="mailto:tuffsany@gmail.com" class="link-with-icon">୨ৎ Email</a>
+        <a href="https://vsco.co/tuffsany/gallery" class="link-with-icon">୨ৎ VSCO</a>
+        <a href="https://www.instagram.com/tiff.visuals/" class="link-with-icon">୨ৎ Instagram</a>
+        <a href="https://www.instagram.com/tiffminrobotics/" class="link-with-icon">୨ৎ Robotics Instagram</a>
+        <a href="https://team24124.github.io/" class="link-with-icon">୨ৎ Team 24124</a>
+      </div>
+    </WindowPrompt>
+
+    <WindowPrompt startTop={350} startLeft={150} title="Current Obsessions">
+      <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/playlist/2I5ATI31mh6vJuhyspnOC3?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+    </WindowPrompt>
+
+    <WindowPrompt startTop={150} startLeft={800} title="About Me">
+      <p>Hello! My name is Tiff.</p>
+      <br>
+      <p>I'm a designer, photographer, and developer based in Alberta, Canada.</p>
+      <br>
+      <p>Welcome to my internet lair.</p>
+      <br>
+      <p>Feel free to email or DM me if you have any questions or inquiries.</p>
+      <img src="/images/about.jpg" class="prompt-image" draggable="false"/>
+      
+    </WindowPrompt>
+    
+  </div>
+  <Footer />
+</BaseLayout>

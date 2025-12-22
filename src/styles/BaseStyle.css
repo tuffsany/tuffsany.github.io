@@ -11,7 +11,7 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: center; /* vertical center including header */
+  justify-content: center;
   align-items: center;
   text-align: center;
 }
@@ -24,7 +24,7 @@ body {
   overflow-x: hidden;
   scrollbar-width: none;
 
-  background: url("/images/bg.jpg") center/cover fixed no-repeat;
+  background: url("/images/bg.png") center/cover fixed no-repeat;
 }
 
 body::-webkit-scrollbar {
@@ -87,4 +87,22 @@ footer small {
   align-items: center;
   z-index: 2000;
 }
+
+/* prompt stuff */
+.link-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px 15px;
+}
+
+.link-with-icon {
+  text-decoration: underline;
+  color: black;
+  padding-left: 5px;
+  display: inline-block;
+}
+
+
+
+
 
