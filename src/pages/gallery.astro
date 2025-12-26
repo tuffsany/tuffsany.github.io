@@ -2,31 +2,46 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Header from "../components/Header.astro";
 import Folder from "../components/Folder.astro";
-import Lightbox from "../components/Lightbox.astro";
 import Footer from "../components/Footer.astro";
 import "../styles/BaseStyle.css";
+import Lightbox from "../components/Lightbox.astro";
 
-// Image groups for lightbox
+// Image groups
 const groups = {
   team24: [
     { src: "/images/gallery/art/robotics/robotics24-1.jpg", alt: "Team 24124, Sturgeon Meet 1" },
     { src: "/images/gallery/art/robotics/robotics24-2.jpg", alt: "Team 24124, Sturgeon Meet 1" },
-    { src: "/images/gallery/art/robotics/robotics24-3.jpg", alt: "Team 24124, Winter Pep Rally" },
-    { src: "/images/gallery/art/robotics/robotics24-4.jpg", alt: "Team 24124, Winter Pep Rally" },
-    { src: "/images/gallery/art/robotics/robotics24-5.jpg", alt: "Team 24124, Robotics Room" },
-    { src: "/images/gallery/art/robotics/robotics24-6.jpg", alt: "Team 24124, Robotics Room" },
-    { src: "/images/gallery/art/robotics/robotics24-7.jpg", alt: "Team 24124, Provincial Championships" }
+    { src: "/images/gallery/art/robotics/robotics24-3.jpg", alt: "Team 24124, Provincial Championships" },
+    { src: "/images/gallery/art/robotics/robotics24-4.jpg", alt: "Team 24124, Provincial Championships" },
+    { src: "/images/gallery/art/robotics/robotics24-5.jpg", alt: "Team 24124, Fish Bowl" },
+    { src: "/images/gallery/art/robotics/robotics24-6.jpg", alt: "Team 24124, Fish Bowl" },
+    { src: "/images/gallery/art/robotics/robotics24-7.jpg", alt: "Team 24124, NTHS Scrimmage" },
+    { src: "/images/gallery/art/robotics/robotics24-8.jpg", alt: "Team 24124, NTHS Scrimmage" }
   ],
   team26: [
     { src: "/images/gallery/art/robotics/robotics26-1.jpg", alt: "Team 26145, Sturgeon Meet 1" },
-    { src: "/images/gallery/art/robotics/robotics26-2.jpg", alt: "Team 26145, Provincial Championships" },
+    { src: "/images/gallery/art/robotics/robotics26-2.jpg", alt: "Team 26145, Atlatl Meet 1" },
+    { src: "/images/gallery/art/robotics/robotics26-3.jpg", alt: "Team 26145, Atlatl Meet 1" },
+  ],
+  team30: [
+    { src: "/images/gallery/art/robotics/robotics30-1.jpg", alt: "Team 30645, NTHS Scrimmage" },
+    { src: "/images/gallery/art/robotics/robotics30-2.jpg", alt: "Team 30645, NTHS Scrimmage" },
+    { src: "/images/gallery/art/robotics/robotics30-3.jpg", alt: "Team 30645, NTHS Scrimmage" },
+    { src: "/images/gallery/art/robotics/robotics30-4.jpg", alt: "Team 30645, NTHS Scrimmage" },
+    { src: "/images/gallery/art/robotics/robotics30-5.jpg", alt: "Team 30645, NTHS Scrimmage" },
   ],
   robotics: [
     { src: "/images/gallery/art/robotics/robotics-1.jpg", alt: "Team 22029, Provincial Championships" },
-    { src: "/images/gallery/art/robotics/robotics-2.jpg", alt: "Team 20715, Provincial Championships" },
-    { src: "/images/gallery/art/robotics/robotics-3.jpg", alt: "Alliance Selection, Provincial Championships" },
-    { src: "/images/gallery/art/robotics/robotics-4.jpg", alt: "Team 23684, Provincial Championships" },
-    { src: "/images/gallery/art/robotics/robotics-5.jpg", alt: "Team 20718, Provincial Championships" },
+    { src: "/images/gallery/art/robotics/robotics-2.jpg", alt: "NTHS Fish Bowl" },
+    { src: "/images/gallery/art/robotics/robotics-3.jpg", alt: "NTHS Fish Bowl" },
+    { src: "/images/gallery/art/robotics/robotics-4.jpg", alt: "NTHS Fish Bowl" },
+    { src: "/images/gallery/art/robotics/robotics-5.jpg", alt: "Team 22029, Provincial Championships" },
+    { src: "/images/gallery/art/robotics/robotics-6.jpg", alt: "NTHS Scrimmage" },
+    { src: "/images/gallery/art/robotics/robotics-7.jpg", alt: "Team 27015, Provincial Championships" },
+    { src: "/images/gallery/art/robotics/robotics-8.jpg", alt: "Team 5009, NTHS Scrimmage" },
+    { src: "/images/gallery/art/robotics/robotics-9.jpg", alt: "Team 7277, NTHS Scrimmage" },
+    { src: "/images/gallery/art/robotics/robotics-10.jpg", alt: "Team 21595, Provincial Championships" },
+    { src: "/images/gallery/art/robotics/robotics-11.jpg", alt: "Bingle" }
   ],
   art: [
     { src: "/images/gallery/art/Artboard 4.png", alt: "Silly Pets" },
@@ -34,21 +49,8 @@ const groups = {
   ]
 };
 
-// Preview items for stacked display
-const team24Preview = groups.team24.slice(0, 5).map(item => ({ ...item, group: "team24" }));
-const team26Preview = groups.team26.slice(0, 5).map(item => ({ ...item, group: "team26" }));
-const roboticsPreview = groups.robotics.slice(0, 5).map(item => ({ ...item, group: "robotics" }));
-const digitalArt = groups.art.slice(0, 5).map(item => ({ ...item, group: "art" }));
----
 
-<script type="module">
-  window.imageGroups = {
-    team24: [...groups.team24],
-    team26: [...groups.team26],
-    art: [...groups.art]
-  };
-  document.addEventListener('DOMContentLoaded', () => lightbox());
-</script>
+---
 
 <BaseLayout title="The Gallery.">
   <div id="page">
@@ -56,42 +58,52 @@ const digitalArt = groups.art.slice(0, 5).map(item => ({ ...item, group: "art" }
 
     <div id="content">
       <section class="intro">
+        <Folder 
+            title="Team 24124" 
+            fullGroupItems={groups.team24} 
+            group="team24" 
+            startTop={100} 
+            startLeft={99} 
+          />
+          <Folder 
+            title="Team 26145" 
+            fullGroupItems={groups.team26} 
+            group="team26" 
+            startTop={70} 
+            startLeft={189} 
+          />
+          <Folder 
+            title="Team 30645" 
+            fullGroupItems={groups.team30} 
+            group="team30" 
+            startTop={160} 
+            startLeft={179} 
+          />
+          <Folder 
+            title="Robotics Events" 
+            fullGroupItems={groups.robotics} 
+            group="robotics" 
+            startTop={123} 
+            startLeft={310} 
+          />
+          <Folder 
+            title="Featured" 
+            fullGroupItems={groups.art} 
+            group="art" 
+            startTop={138} 
+            startLeft={1600} 
+          />
         <div class="mainText">
           <h1>The Gallery.</h1>
           <p>Explore my Photography and Digital Art.</p>
 
-          <div class="jump-buttons">
-            <a href="#photography">Go to Photography</a>
-            <a href="#art">Go to Art</a>
-          </div>
+          
         </div>
       </section>
 
-      <section id="photography" class="jump-target">
-        <h2 class="section-title">Photography</h2>
-        <div class="folder-row">
-          <div class="folder-block">
-            <p class="folder-subtitle">Team 24124</p>
-            <Folder items={team24Preview} fullGroupItems={groups.team24} group="team24" />
-          </div>
-          <div class="folder-block">
-            <p class="folder-subtitle">Team 26145</p>
-            <Folder items={team26Preview} fullGroupItems={groups.team26} group="team26" />
-          </div>
-          <div class="folder-block">
-            <p class="folder-subtitle">Robotics Events</p>
-            <Folder items={roboticsPreview} fullGroupItems={groups.robotics} group="robotics" />
-        </div>
-      </section>
+  
 
-      <section id="art" class="jump-target">
-        <h2 class="section-title">Digital Art</h2>
-        <div class="folder-block">
-          <p class="folder-subtitle">Featured</p>
-          <Folder items={digitalArt} fullGroupItems={groups.art} group="art" />
-        </div>
-      </section>
-
+      <!-- Global Lightbox -->
       <Lightbox />
     </div>
 
@@ -99,67 +111,4 @@ const digitalArt = groups.art.slice(0, 5).map(item => ({ ...item, group: "art" }
   </div>
 </BaseLayout>
 
-<style>
-  .jump-buttons {
-    margin-top: 20px;
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-  }
 
-  .jump-buttons a {
-    text-shadow: 2px 2px 4px #000000;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.5);
-    color: #fff;
-    border-bottom: 2px solid #1e4d7b;
-    padding: 10px 20px;
-    border-radius: 8px;
-    text-decoration: none;
-    font-weight: bold;
-    transition: background 0.3s ease, transform 0.12s ease;
-  }
-
-  .jump-buttons a:hover {
-    background-color: #1e4d7b;
-    transform: translateY(-3px);
-  }
-
-  .intro {
-    min-height: 80vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 2rem;
-  }
-
-  .section-title {
-    text-align: center;
-    font-size: 2.2rem;
-    margin-top: 4rem;
-    margin-bottom: 2rem;
-    color: #ffffff;
-    text-shadow: 2px 2px 4px #000;
-  }
-
-  .folder-row {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 2rem;
-    margin-top: 2rem;
-  }
-
-  .folder-block {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .folder-subtitle {
-    font-size: 1.2rem;
-    margin-bottom: 15px;
-    color: #ffffff;
-    text-shadow: 2px 2px 5px #000000;
-  }
-</style>
