@@ -1,7 +1,11 @@
 ---
-const { startTop = 100, startLeft = 50, title = "Prompt" } = Astro.props;
+const { startTop = 20, startLeft = 10, title = "Prompt" } = Astro.props;
 ---
-<div class="prompt" style={`top: ${startTop}px; left: ${startLeft}px;`}>
+
+<div 
+  class="prompt"
+  style={`top: ${startTop}vh; left: ${startLeft}vw;`}
+>
   <div class="prompt-header">
     <span class="prompt-title">{title}</span>
   </div>
@@ -15,11 +19,13 @@ const { startTop = 100, startLeft = 50, title = "Prompt" } = Astro.props;
 .prompt {
   user-select: none;
   width: 100%;
-  max-width: 500px;
+  max-height: none;
+  max-width: min(500px, 90vw);
   color: #1d1d1d;
   position: absolute;
   cursor: default;
   filter: drop-shadow(2px 2px 4px #353535);
+  overflow: hidden;
 }
 
 .prompt-header {
@@ -35,6 +41,10 @@ const { startTop = 100, startLeft = 50, title = "Prompt" } = Astro.props;
   cursor: grab;
 }
 
+.prompt-header:active {
+  cursor: grabbing;
+}
+
 .prompt-title {
   color: #6b6b6b;
   font-size: 12px;
@@ -48,14 +58,12 @@ const { startTop = 100, startLeft = 50, title = "Prompt" } = Astro.props;
   border-bottom-left-radius: 6px;
   border-bottom-right-radius: 6px;
   line-height: 1.5;
-  
   position: relative;
 }
 
-.prompt-body:has(.prompt-image) {
-  padding-right: 317px;
+.prompt-body.has-image {
+  padding-right: clamp(0px, 30vw, 317px);
 }
-
 
 .prompt-body p {
   text-align: left;
@@ -66,42 +74,84 @@ const { startTop = 100, startLeft = 50, title = "Prompt" } = Astro.props;
   position: absolute;
   right: 12px;
   top: 12px;
-  width: 300px;
-  height: 300px;
+  width: clamp(150px, 30vw, 300px);
+  height: auto;
   border-radius: 15px;
   user-select: none;
   pointer-events: none;
 }
 
+body.dragging {
+  user-select: none;
+}
 
+@media (max-width: 768px) {
+  .prompt {
+    position: static;
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 20px;
+  }
 
+  .prompt-image {
+    position: relative;
+    width: 100%;
+    margin-top: 10px;
+  }
 
-
+  .prompt-body.has-image {
+    padding-right: 10px;
+  }
+}
 </style>
 
 <script>
+let highestZ = 1;
+
 document.querySelectorAll('.prompt').forEach((prompt) => {
   const handle = prompt.querySelector('.prompt-header');
+
   let offsetX = 0;
   let offsetY = 0;
   let isDragging = false;
 
   handle.addEventListener("mousedown", (e) => {
     isDragging = true;
-    offsetX = e.clientX - prompt.offsetLeft;
-    offsetY = e.clientY - prompt.offsetTop;
-    handle.style.cursor = "grabbing";
+
+    const rect = prompt.getBoundingClientRect();
+    offsetX = e.clientX - rect.left;
+    offsetY = e.clientY - rect.top;
+
+    highestZ++;
+    prompt.style.zIndex = highestZ;
+
+    document.body.classList.add("dragging");
   });
 
   document.addEventListener("mousemove", (e) => {
     if (!isDragging) return;
-    prompt.style.left = `${e.clientX - offsetX}px`;
-    prompt.style.top = `${e.clientY - offsetY}px`;
+
+    let x = e.clientX - offsetX;
+    let y = e.clientY - offsetY;
+
+    // bounds
+    const maxX = window.innerWidth - prompt.offsetWidth;
+    const maxY = window.innerHeight - prompt.offsetHeight;
+
+    x = Math.max(0, Math.min(x, maxX));
+    y = Math.max(0, Math.min(y, maxY));
+
+    const xVW = (x / window.innerWidth) * 100;
+    const yVH = (y / window.innerHeight) * 100;
+
+    prompt.style.left = `${xVW}vw`;
+    prompt.style.top = `${yVH}vh`;
   });
 
   document.addEventListener("mouseup", () => {
     isDragging = false;
-    handle.style.cursor = "grab";
+    document.body.classList.remove("dragging");
   });
 });
+
 </script>

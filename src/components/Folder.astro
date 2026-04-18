@@ -1,12 +1,19 @@
 ---
-const { group, fullGroupItems, title = "Folder", startTop = 100, startLeft = 50 } = Astro.props;
+const { group, fullGroupItems, title = "Folder", startTop = 20, startLeft = 10 } = Astro.props;
 
 const groupName = group;
 const images = fullGroupItems || [];
 ---
 
-<!-- Draggable Folder Icon -->
-<div class="folder-wrapper" style={`top: ${startTop}px; left: ${startLeft}px;`} data-group={groupName} data-images={JSON.stringify(images)}>
+<div
+  class="folder-wrapper"
+  style={`
+    top: clamp(0vh, ${startTop}vh, 85vh);
+    left: clamp(0vw, ${startLeft}vw, 85vw);
+  `}
+  data-group={groupName}
+  data-images={encodeURIComponent(JSON.stringify(images))}
+>
   <div class="folder">
     <img src="/images/ui/folder.png" alt="Folder" />
     <p class="folder-title">{title}</p>
@@ -20,6 +27,7 @@ const images = fullGroupItems || [];
   user-select: none;
   z-index: 1000;
   text-align: center;
+  max-width: 120px;
 }
 
 .folder {
@@ -40,12 +48,10 @@ const images = fullGroupItems || [];
   user-select: none;
 }
 
-/* Lightbox */
 .lightbox {
   display: none;
   position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
+  inset: 0;
   background: rgba(0,0,0,0.9);
   justify-content: center;
   align-items: center;
@@ -90,22 +96,20 @@ const images = fullGroupItems || [];
   z-index: 2100;
 }
 
-#prev-btn:hover, #next-btn:hover {
-  background: rgba(255,255,255,0.2);
-}
-
 #prev-btn { left: 10px; }
 #next-btn { right: 10px; }
 </style>
 
 <script>
+let highestZ = 1000;
 let initialized = false;
 
-export default function folderGallery() {
+function folderGallery() {
   if (initialized) return;
   initialized = true;
 
   const folders = document.querySelectorAll('.folder-wrapper');
+
   const lightbox = document.getElementById('lightbox-modal');
   const lightboxImg = document.getElementById('lightbox-img');
   const lightboxCaption = document.getElementById('lightbox-caption');
@@ -116,25 +120,36 @@ export default function folderGallery() {
   let currentIndex = 0;
 
   folders.forEach(wrapper => {
-    let offsetX = 0, offsetY = 0, isDragging = false;
-
     wrapper.addEventListener('mousedown', (e) => {
-      isDragging = false;
-      offsetX = e.clientX - wrapper.offsetLeft;
-      offsetY = e.clientY - wrapper.offsetTop;
+      let isDragging = false;
+
+      const rect = wrapper.getBoundingClientRect();
+      const offsetX = e.clientX - rect.left;
+      const offsetY = e.clientY - rect.top;
+
+      wrapper.style.zIndex = ++highestZ;
 
       const onMouseMove = (eMove) => {
         isDragging = true;
-        wrapper.style.left = `${eMove.clientX - offsetX}px`;
-        wrapper.style.top = `${eMove.clientY - offsetY}px`;
+
+        let x = eMove.clientX - offsetX;
+        let y = eMove.clientY - offsetY;
+
+        const maxX = window.innerWidth - wrapper.offsetWidth;
+        const maxY = window.innerHeight - wrapper.offsetHeight;
+
+        x = Math.max(0, Math.min(x, maxX));
+        y = Math.max(0, Math.min(y, maxY));
+
+        wrapper.style.left = `${(x / window.innerWidth) * 100}vw`;
+        wrapper.style.top = `${(y / window.innerHeight) * 100}vh`;
       };
 
-      const onMouseUp = (eUp) => {
+      const onMouseUp = () => {
         document.removeEventListener('mousemove', onMouseMove);
         document.removeEventListener('mouseup', onMouseUp);
 
         if (!isDragging) {
-          // Click action (open gallery)
           openGallery(wrapper);
         }
       };
@@ -145,13 +160,16 @@ export default function folderGallery() {
   });
 
   function openGallery(wrapper) {
-    const groupName = wrapper.dataset.group;
     try {
-      currentGroup = JSON.parse(wrapper.dataset.images || '[]');
+      currentGroup = JSON.parse(
+        decodeURIComponent(wrapper.dataset.images || "[]")
+      );
     } catch {
       currentGroup = [];
     }
+
     if (!currentGroup.length) return;
+
     currentIndex = 0;
     showImage();
     lightbox.classList.add('active');
@@ -160,28 +178,23 @@ export default function folderGallery() {
   function showImage() {
     const item = currentGroup[currentIndex];
     if (!item) return;
-    lightboxImg.src = item.src;
-    lightboxCaption.textContent = item.alt || 'Untitled';
 
-    const showNav = currentGroup.length > 1;
-    prevBtn.style.display = showNav ? 'block' : 'none';
-    nextBtn.style.display = showNav ? 'block' : 'none';
+    lightboxImg.src = item.src;
+    lightboxCaption.textContent = item.alt || "";
   }
 
-  nextBtn.addEventListener('click', (e) => {
-    e.stopPropagation();
+  nextBtn?.addEventListener('click', () => {
     currentIndex = (currentIndex + 1) % currentGroup.length;
     showImage();
   });
 
-  prevBtn.addEventListener('click', (e) => {
-    e.stopPropagation();
+  prevBtn?.addEventListener('click', () => {
     currentIndex = (currentIndex - 1 + currentGroup.length) % currentGroup.length;
     showImage();
   });
 
-  lightbox.addEventListener('click', (e) => {
-    if (!e.target.closest('.lightbox-content')) {
+  lightbox?.addEventListener('click', (e) => {
+    if (e.target.id === 'lightbox-modal') {
       lightbox.classList.remove('active');
       lightboxImg.src = '';
     }
@@ -189,8 +202,10 @@ export default function folderGallery() {
 
   document.addEventListener('keydown', (e) => {
     if (!lightbox.classList.contains('active')) return;
-    if (e.key === 'ArrowRight') nextBtn.click();
-    if (e.key === 'ArrowLeft') prevBtn.click();
+
+    if (e.key === 'ArrowRight') nextBtn?.click();
+    if (e.key === 'ArrowLeft') prevBtn?.click();
+
     if (e.key === 'Escape') {
       lightbox.classList.remove('active');
       lightboxImg.src = '';
@@ -198,7 +213,5 @@ export default function folderGallery() {
   });
 }
 
-window.addEventListener('DOMContentLoaded', () => {
-  folderGallery();
-});
+window.addEventListener('DOMContentLoaded', folderGallery);
 </script>

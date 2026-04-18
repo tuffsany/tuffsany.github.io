@@ -6,50 +6,51 @@ import Footer from "../components/Footer.astro";
 import "../styles/BaseStyle.css";
 import Lightbox from "../components/Lightbox.astro";
 
-// Image groups
 const groups = {
   team24: [
-    { src: "/images/gallery/art/robotics/robotics24-1.jpg", alt: "Team 24124, Sturgeon Meet 1" },
-    { src: "/images/gallery/art/robotics/robotics24-2.jpg", alt: "Team 24124, Sturgeon Meet 1" },
-    { src: "/images/gallery/art/robotics/robotics24-3.jpg", alt: "Team 24124, Provincial Championships" },
-    { src: "/images/gallery/art/robotics/robotics24-4.jpg", alt: "Team 24124, Provincial Championships" },
-    { src: "/images/gallery/art/robotics/robotics24-5.jpg", alt: "Team 24124, Fish Bowl" },
-    { src: "/images/gallery/art/robotics/robotics24-6.jpg", alt: "Team 24124, Fish Bowl" },
-    { src: "/images/gallery/art/robotics/robotics24-7.jpg", alt: "Team 24124, NTHS Scrimmage" },
-    { src: "/images/gallery/art/robotics/robotics24-8.jpg", alt: "Team 24124, NTHS Scrimmage" }
+    { src: "https://res.cloudinary.com/dp61tlrci/image/upload/v1776482937/robotics24-8_fimaak.jpg", alt: "Team 24124, Sturgeon Meet 1" },
+    { src: "https://res.cloudinary.com/dp61tlrci/image/upload/v1776482935/robotics24-7_uoritb.jpg", alt: "Team 24124, Sturgeon Meet 1" },
+    { src: "https://res.cloudinary.com/dp61tlrci/image/upload/v1776482933/robotics24-2_kngdbn.jpg", alt: "Team 24124, Provincial Championships 2025" },
+    { src: "https://res.cloudinary.com/dp61tlrci/image/upload/v1776482934/robotics24-3_rgr127.jpg", alt: "Team 24124, Provincial Championships 2025" },
+    { src: "https://res.cloudinary.com/dp61tlrci/image/upload/v1776482934/robotics24-4_q8nwve.jpg", alt: "Team 24124, Provincial Championships 2025" },
+    { src: "https://res.cloudinary.com/dp61tlrci/image/upload/v1776482935/robotics24-6_xpkgzb.jpg", alt: "Team 24124, Fish Bowl" },
+    { src: "https://res.cloudinary.com/dp61tlrci/image/upload/v1776482935/robotics24-5_dqv8ja.jpg", alt: "Team 24124, Fish Bowl" },
+    { src: "https://res.cloudinary.com/dp61tlrci/image/upload/v1776482933/robotics24-1_wqmh0s.jpg", alt: "Team 24124, NTHS Scrimmage" },
   ],
+
   team26: [
-    { src: "/images/gallery/art/robotics/robotics26-1.jpg", alt: "Team 26145, Sturgeon Meet 1" },
-    { src: "/images/gallery/art/robotics/robotics26-2.jpg", alt: "Team 26145, Atlatl Meet 1" },
-    { src: "/images/gallery/art/robotics/robotics26-3.jpg", alt: "Team 26145, Atlatl Meet 1" },
+    { src: "https://res.cloudinary.com/dp61tlrci/image/upload/v1776482937/robotics26-1_x0yxpa.jpg", alt: "Team 26145, Sturgeon Meet 1" },
+    { src: "https://res.cloudinary.com/dp61tlrci/image/upload/v1776482937/robotics26-3_lnwv4w.jpg", alt: "Team 26145, Atlatl Meet 1" },
+    { src: "https://res.cloudinary.com/dp61tlrci/image/upload/v1776482937/robotics26-2_mzqj7z.jpg", alt: "Team 26145, Atlatl Meet 1" }
   ],
+
   team30: [
-    { src: "/images/gallery/art/robotics/robotics30-1.jpg", alt: "Team 30645, NTHS Scrimmage" },
-    { src: "/images/gallery/art/robotics/robotics30-2.jpg", alt: "Team 30645, NTHS Scrimmage" },
-    { src: "/images/gallery/art/robotics/robotics30-3.jpg", alt: "Team 30645, NTHS Scrimmage" },
-    { src: "/images/gallery/art/robotics/robotics30-4.jpg", alt: "Team 30645, NTHS Scrimmage" },
-    { src: "/images/gallery/art/robotics/robotics30-5.jpg", alt: "Team 30645, NTHS Scrimmage" },
+    { src: "https://res.cloudinary.com/dp61tlrci/image/upload/v1776482940/robotics30-3_vhradb.jpg", alt: "Team 30645, NTHS Scrimmage" },
+    { src: "https://res.cloudinary.com/dp61tlrci/image/upload/v1776482940/robotics30-4_z9ry8q.jpg", alt: "Team 30645, NTHS Scrimmage" },
+    { src: "https://res.cloudinary.com/dp61tlrci/image/upload/v1776482939/robotics30-5_igjgid.jpg", alt: "Team 30645, NTHS Scrimmage" },
+    { src: "https://res.cloudinary.com/dp61tlrci/image/upload/v1776482938/robotics30-2_ydwvgu.jpg", alt: "Team 30645, NTHS Scrimmage" },
+    { src: "https://res.cloudinary.com/dp61tlrci/image/upload/v1776482938/robotics30-1_cgjlme.jpg", alt: "Team 30645, NTHS Scrimmage" }
   ],
+
   robotics: [
-    { src: "/images/gallery/art/robotics/robotics-1.jpg", alt: "Team 22029, Provincial Championships" },
-    { src: "/images/gallery/art/robotics/robotics-2.jpg", alt: "NTHS Fish Bowl" },
-    { src: "/images/gallery/art/robotics/robotics-3.jpg", alt: "NTHS Fish Bowl" },
-    { src: "/images/gallery/art/robotics/robotics-4.jpg", alt: "NTHS Fish Bowl" },
-    { src: "/images/gallery/art/robotics/robotics-5.jpg", alt: "Team 22029, Provincial Championships" },
-    { src: "/images/gallery/art/robotics/robotics-6.jpg", alt: "NTHS Scrimmage" },
-    { src: "/images/gallery/art/robotics/robotics-7.jpg", alt: "Team 27015, Provincial Championships" },
-    { src: "/images/gallery/art/robotics/robotics-8.jpg", alt: "Team 5009, NTHS Scrimmage" },
-    { src: "/images/gallery/art/robotics/robotics-9.jpg", alt: "Team 7277, NTHS Scrimmage" },
-    { src: "/images/gallery/art/robotics/robotics-10.jpg", alt: "Team 21595, Provincial Championships" },
-    { src: "/images/gallery/art/robotics/robotics-11.jpg", alt: "Bingle" }
+    { src: "https://res.cloudinary.com/dp61tlrci/image/upload/v1776482931/robotics-5_effby9.jpg", alt: "Team 22029, Provincial Championships" },
+    { src: "https://res.cloudinary.com/dp61tlrci/image/upload/v1776482930/robotics-4_pw8c6z.jpg", alt: "NTHS Fish Bowl" },
+    { src: "https://res.cloudinary.com/dp61tlrci/image/upload/v1776482930/robotics-3_tgtjbk.jpg", alt: "NTHS Fish Bowl" },
+    { src: "https://res.cloudinary.com/dp61tlrci/image/upload/v1776482930/robotics-2_uqkvac.jpg", alt: "NTHS Fish Bowl" },
+    { src: "https://res.cloudinary.com/dp61tlrci/image/upload/v1776482930/robotics-1_zlrwsh.jpg", alt: "Team 22029, Provincial Championships" },
+    { src: "https://res.cloudinary.com/dp61tlrci/image/upload/v1776482931/robotics-6_lpo5l9.jpg", alt: "NTHS Scrimmage" },
+    { src: "https://res.cloudinary.com/dp61tlrci/image/upload/v1776482931/robotics-7_vdwbgl.jpg", alt: "Team 27015, Provincial Championships" },
+    { src: "https://res.cloudinary.com/dp61tlrci/image/upload/v1776482931/robotics-8_k3xmab.jpg", alt: "Team 5009, NTHS Scrimmage" },
+    { src: "https://res.cloudinary.com/dp61tlrci/image/upload/v1776482932/robotics-9_nnxsky.jpg", alt: "Team 7277, NTHS Scrimmage" },
+    { src: "https://res.cloudinary.com/dp61tlrci/image/upload/v1776482932/robotics-10_v6sw9w.jpg", alt: "Team 21595, Provincial Championships" },
+    { src: "https://res.cloudinary.com/dp61tlrci/image/upload/v1776482933/robotics-11_igbz4q.jpg", alt: "Bingle" }
   ],
+
   art: [
-    { src: "/images/gallery/art/Artboard 4.png", alt: "Silly Pets" },
-    { src: "/images/gallery/art/lvespls.png", alt: "Love Spells Portrait" }
+    { src: "https://res.cloudinary.com/dp61tlrci/image/upload/v1776482942/Artboard_4_y1vufv.png", alt: "Silly Pets, portrait 1" },
+    { src: "https://res.cloudinary.com/dp61tlrci/image/upload/v1776482944/lvespls_cfzsst.png", alt: "Portrait of Sir Taegen Harris, AKA Love Spells" }
   ]
 };
-
-
 ---
 
 <BaseLayout title="The Gallery.">
@@ -58,57 +59,57 @@ const groups = {
 
     <div id="content">
       <section class="intro">
+
         <Folder 
-            title="Team 24124" 
-            fullGroupItems={groups.team24} 
-            group="team24" 
-            startTop={100} 
-            startLeft={99} 
-          />
-          <Folder 
-            title="Team 26145" 
-            fullGroupItems={groups.team26} 
-            group="team26" 
-            startTop={70} 
-            startLeft={189} 
-          />
-          <Folder 
-            title="Team 30645" 
-            fullGroupItems={groups.team30} 
-            group="team30" 
-            startTop={160} 
-            startLeft={179} 
-          />
-          <Folder 
-            title="Robotics Events" 
-            fullGroupItems={groups.robotics} 
-            group="robotics" 
-            startTop={123} 
-            startLeft={310} 
-          />
-          <Folder 
-            title="Featured" 
-            fullGroupItems={groups.art} 
-            group="art" 
-            startTop={138} 
-            startLeft={1600} 
-          />
+          title="Team 24124" 
+          fullGroupItems={groups.team24} 
+          group="team24" 
+          startTop={10} 
+          startLeft={5} 
+        />
+
+        <Folder 
+          title="Team 26145" 
+          fullGroupItems={groups.team26} 
+          group="team26" 
+          startTop={14} 
+          startLeft={10} 
+        />
+
+        <Folder 
+          title="Team 30645" 
+          fullGroupItems={groups.team30} 
+          group="team30" 
+          startTop={23} 
+          startLeft={6} 
+        />
+
+        <Folder 
+          title="Robotics Events" 
+          fullGroupItems={groups.robotics} 
+          group="robotics" 
+          startTop={27} 
+          startLeft={14} 
+        />
+
+        <Folder 
+          title="Featured Art" 
+          fullGroupItems={groups.art} 
+          group="art" 
+          startTop={22} 
+          startLeft={89} 
+        />
+
         <div class="mainText">
           <h1>The Gallery.</h1>
           <p>Explore my Photography and Digital Art.</p>
-
-          
         </div>
+
       </section>
 
-  
-
-      <!-- Global Lightbox -->
       <Lightbox />
     </div>
 
     <Footer />
   </div>
 </BaseLayout>
-
-
