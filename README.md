@@ -1,2 +1,2 @@
-# Tuffsany's Website
+# tiffs super cool site
 My portfolio and internet lair.
