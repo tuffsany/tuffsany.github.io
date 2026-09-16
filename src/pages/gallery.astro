@@ -3,8 +3,8 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Header from "../components/Header.astro";
 import Folder from "../components/Folder.astro";
 import Footer from "../components/Footer.astro";
+import WindowPrompt from "../components/WindowPrompt.astro";
 import "../styles/BaseStyle.css";
-import Lightbox from "../components/Lightbox.astro";
 
 const groups = {
   team24: [
@@ -46,46 +46,92 @@ const groups = {
     { src: "https://res.cloudinary.com/dp61tlrci/image/upload/v1776482933/robotics-11_igbz4q.jpg", alt: "Bingle" }
   ],
 
+  cars: [
+
+  ]
+};
+
+const folderData = {
+  team24: {
+    title: "Team 24124",
+    items: groups.team24,
+    top: 15,
+    left: 25
+  },
+
+  team26: {
+    title: "Team 26145",
+    items: groups.team26,
+    top: 20,
+    left: 30
+  },
+
+  team30: {
+    title: "Team 30645",
+    items: groups.team30,
+    top: 25,
+    left: 35
+  },
+
+  robotics: {
+    title: "Robotics Events",
+    items: groups.robotics,
+    top: 30,
+    left: 40
+  },
+
+  cars: {
+    title: "Cars",
+    items: groups.cars,
+    top: 35,
+    left: 45
+  }
 };
 ---
 
 <BaseLayout title="The Gallery.">
   <div id="page">
     <Header />
-
     <div id="content">
       <section class="intro">
-
-        <Folder 
-          title="Team 24124" 
-          fullGroupItems={groups.team24} 
-          group="team24" 
-          startTop={10} 
-          startLeft={5} 
+        <Folder
+          title="Team 24124"
+          fullGroupItems={groups.team24}
+          group="team24"
+          startTop={10}
+          startLeft={5}
         />
 
-        <Folder 
-          title="Team 26145" 
-          fullGroupItems={groups.team26} 
-          group="team26" 
-          startTop={14} 
-          startLeft={10} 
+        <Folder
+          title="Team 26145"
+          fullGroupItems={groups.team26}
+          group="team26"
+          startTop={14}
+          startLeft={10}
         />
 
-        <Folder 
-          title="Team 30645" 
-          fullGroupItems={groups.team30} 
-          group="team30" 
-          startTop={23} 
-          startLeft={6} 
+        <Folder
+          title="Team 30645"
+          fullGroupItems={groups.team30}
+          group="team30"
+          startTop={23}
+          startLeft={6}
         />
 
-        <Folder 
-          title="Robotics Events" 
-          fullGroupItems={groups.robotics} 
-          group="robotics" 
-          startTop={27} 
-          startLeft={14} 
+        <Folder
+          title="Robotics Events"
+          fullGroupItems={groups.robotics}
+          group="robotics"
+          startTop={27}
+          startLeft={14}
+        />
+
+        <Folder
+          title="Cars"
+          fullGroupItems={[]}
+          group="cars"
+          startTop={35}
+          startLeft={10}
         />
 
         <div class="mainText">
@@ -95,9 +141,373 @@ const groups = {
 
       </section>
 
-      <Lightbox />
-    </div>
+      <div id="gallery-prompt-containers">
 
+        {
+          Object.entries(folderData).map(([group, data]) => (
+            <div
+              class="gallery-prompt-container"
+              data-group={group}
+              style={`--prompt-top: ${data.top}vh; --prompt-left: ${data.left}vw;`}
+            >
+              <WindowPrompt
+                title={data.title}
+                startTop={data.top}
+                startLeft={data.left}
+              >
+                <div class="gallery-prompt-body"></div>
+              </WindowPrompt>
+            </div>
+          ))
+        }
+      </div>
+
+      <div id="image-viewer">
+        <button id="viewer-close" type="button" aria-label="Close image viewer">
+          ×
+        </button>
+
+        <button id="viewer-prev" type="button" aria-label="Previous image">
+          ‹
+        </button>
+
+        <div id="viewer-content">
+          <img id="viewer-image" src="" alt="" />
+        </div>
+
+        <button
+          id="viewer-next"
+          type="button"
+          aria-label="Next image"
+        >
+          ›
+        </button>
+      </div>
+    </div>
     <Footer />
   </div>
 </BaseLayout>
+
+<script define:vars={{ folderData }}>
+
+  const viewer = document.querySelector("#image-viewer");
+  const viewerImage = document.querySelector("#viewer-image");
+  const viewerClose = document.querySelector("#viewer-close");
+  const viewerPrev = document.querySelector("#viewer-prev");
+  const viewerNext = document.querySelector("#viewer-next");
+
+  let currentImages = [];
+  let currentIndex = 0;
+
+  document.querySelectorAll(".folder-wrapper").forEach((folder) => {
+
+    folder.addEventListener("click", (event) => {
+
+      if (folder.dataset.dragging === "true") {
+        folder.dataset.dragging = "false";
+        return;
+      }
+
+      const group = folder.dataset.group;
+      const data = folderData[group];
+
+      if (!data) return;
+
+      const container = document.querySelector(
+        `.gallery-prompt-container[data-group="${group}"]`
+      );
+
+      if (!container) return;
+
+      const prompt = container.querySelector(".prompt");
+      const galleryBody = container.querySelector(".gallery-prompt-body");
+
+      if (!prompt || !galleryBody) return;
+
+      // Do nothing if window is already open
+      if (container.style.display === "block") {
+        return;
+      }
+
+      galleryBody.innerHTML = "";
+
+      data.items.forEach((item, index) => {
+        const thumbnail = document.createElement("button");
+        thumbnail.type = "button";
+        thumbnail.className = "gallery-thumbnail";
+
+        thumbnail.setAttribute(
+          "aria-label",
+          `Open ${item.alt}`
+        );
+        const image = document.createElement("img");
+
+        image.src = item.src;
+        image.alt = item.alt;
+
+        const title = document.createElement("span");
+
+        title.className = "gallery-thumbnail-title";
+        title.textContent = item.alt;
+
+        thumbnail.appendChild(image);
+        thumbnail.appendChild(title);
+
+        galleryBody.appendChild(thumbnail);
+
+        thumbnail.addEventListener("click", (event) => {
+
+          event.stopPropagation();
+
+          currentImages = data.items;
+          currentIndex = index;
+
+          openViewer();
+
+        });
+
+      });
+
+      prompt.style.display = "block";
+      container.style.display = "block";
+
+    });
+
+  });
+
+  document.querySelectorAll(".gallery-prompt-container").forEach((container) => {
+
+    const prompt = container.querySelector(".prompt");
+    const closeButton = container.querySelector(".prompt-close");
+
+    if (!prompt || !closeButton) return;
+
+    closeButton.addEventListener("click", (event) => {
+      event.stopPropagation();
+      prompt.style.display = "none";
+      container.style.display = "none";
+    });
+  });
+
+  function openViewer() {
+    if (!currentImages.length) return;
+
+    const item = currentImages[currentIndex];
+
+    viewerImage.src = item.src;
+    viewerImage.alt = item.alt;
+
+    viewer.style.display = "flex";
+  }
+
+
+  function closeViewer() {
+    viewer.style.display = "none";
+
+    viewerImage.src = "";
+    viewerImage.alt = "";
+  }
+
+
+  function showPrevious() {
+    if (!currentImages.length) return;
+
+    currentIndex =
+      (currentIndex - 1 + currentImages.length) %
+      currentImages.length;
+    openViewer();
+  }
+
+
+  function showNext() {
+    if (!currentImages.length) return;
+
+    currentIndex =
+      (currentIndex + 1) % currentImages.length;
+    openViewer();
+  }
+
+
+  viewerClose.addEventListener("click", (event) => {
+    event.stopPropagation();
+    closeViewer();
+  });
+
+
+  viewerPrev.addEventListener("click", (event) => {
+    event.stopPropagation();
+    showPrevious();
+  });
+
+
+  viewerNext.addEventListener("click", (event) => {
+    event.stopPropagation();
+    showNext();
+  });
+
+
+  viewer.addEventListener("click", (event) => {
+    if (event.target === viewer) {
+      closeViewer();
+    }
+  });
+
+
+  document.addEventListener("keydown", (event) => {
+    if (viewer.style.display !== "flex") return;
+    if (event.key === "Escape") {
+      closeViewer();
+    }
+    if (event.key === "ArrowLeft") {
+      showPrevious();
+    }
+    if (event.key === "ArrowRight") {
+      showNext();
+    }
+
+  });
+
+</script>
+
+<style is:global>
+  #gallery-prompt-containers {
+    position: fixed;
+    inset: 0;
+    z-index: 900;
+    pointer-events: none;
+  }
+
+  .gallery-prompt-container {
+    display: none;
+    pointer-events: none;
+  }
+
+  .gallery-prompt-container .prompt {
+    pointer-events: auto;
+  }
+
+  .gallery-prompt-body {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    padding: 10px;
+    max-height: 60vh;
+    overflow-y: auto;
+  }
+
+  .gallery-prompt-body {
+  display: grid;
+  grid-template-columns: repeat(4, 120px);
+  gap: 10px;
+  padding: 10px;
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+.gallery-thumbnail {
+  width: 120px;
+  height: 115px;
+  padding: 3px;
+  border: none;
+  background: #f1f2f2;
+  cursor: pointer;
+  text-align: left;
+}
+
+.gallery-thumbnail:hover {
+  background: #e3e3e3;
+}
+
+.gallery-thumbnail img {
+  display: block;
+  width: 114px;
+  height: 80px;
+  object-fit: cover;
+}
+
+.gallery-thumbnail-title {
+  display: block;
+  margin: 5px 2px 2px;
+  font-family: Tahoma, sans-serif;
+  font-size: 11px;
+  line-height: 1.2;
+  color: #333;
+}
+
+  #image-viewer {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 5000;
+    background: rgba(0, 0, 0, 0.85);
+    align-items: center;
+    justify-content: center;
+  }
+
+  #viewer-content {
+    max-width: 80vw;
+    max-height: 85vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #viewer-image {
+    display: block;
+    max-width: 80vw;
+    max-height: 85vh;
+    object-fit: contain;
+  }
+
+  #viewer-close,
+  #viewer-prev,
+  #viewer-next {
+    position: absolute;
+    border: none;
+    background: none;
+    color: white;
+    cursor: pointer;
+    font-family: Arial, sans-serif;
+    z-index: 5001;
+  }
+
+  #viewer-close {
+    top: 20px;
+    right: 30px;
+    font-size: 40px;
+  }
+
+  #viewer-prev,
+  #viewer-next {
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 60px;
+    padding: 10px 20px;
+  }
+
+  #viewer-prev {
+    left: 20px;
+  }
+
+  #viewer-next {
+    right: 20px;
+  }
+
+  #viewer-close:hover,
+  #viewer-prev:hover,
+  #viewer-next:hover {
+    color: #bdbdbd;
+  }
+
+  @media (max-width: 768px) {
+    .gallery-prompt-body {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    #viewer-image {
+      max-width: 90vw;
+      max-height: 80vh;
+    }
+}
+
+</style>

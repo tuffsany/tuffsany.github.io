@@ -1,18 +1,16 @@
 ---
-const { group, fullGroupItems, title = "Folder", startTop = 20, startLeft = 10 } = Astro.props;
-
-const groupName = group;
-const images = fullGroupItems || [];
+const {
+  group,
+  title = "Folder",
+  startTop = 20,
+  startLeft = 10
+} = Astro.props;
 ---
 
 <div
   class="folder-wrapper"
-  style={`
-    top: clamp(0vh, ${startTop}vh, 85vh);
-    left: clamp(0vw, ${startLeft}vw, 85vw);
-  `}
-  data-group={groupName}
-  data-images={encodeURIComponent(JSON.stringify(images))}
+  style={`top: ${startTop}vh; left: ${startLeft}vw;`}
+  data-group={group}
 >
   <div class="folder">
     <img src="/images/ui/folder.png" alt="Folder" />
@@ -30,6 +28,10 @@ const images = fullGroupItems || [];
   max-width: 120px;
 }
 
+.folder-wrapper:active {
+  cursor: grabbing;
+}
+
 .folder {
   display: inline-block;
   filter: drop-shadow(2px 2px 4px #7e7e7e);
@@ -43,175 +45,67 @@ const images = fullGroupItems || [];
 }
 
 .folder-title {
+  margin: 4px 0 0;
   font-size: 0.9rem;
   color: #333;
   user-select: none;
 }
-
-.lightbox {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.9);
-  justify-content: center;
-  align-items: center;
-  z-index: 2000;
-}
-
-.lightbox.active {
-  display: flex;
-}
-
-.lightbox-content {
-  position: relative;
-  max-width: 90%;
-  max-height: 90%;
-  text-align: center;
-}
-
-#lightbox-img {
-  max-width: 100%;
-  max-height: 80vh;
-  border-radius: 6px;
-  box-shadow: 0 0 25px rgba(0,0,0,0.6);
-}
-
-#lightbox-caption {
-  margin-top: 1rem;
-  font-size: 1rem;
-  color: #ddd;
-}
-
-#prev-btn, #next-btn {
-  position: fixed;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(0,0,0,0.6);
-  color: #fff;
-  border: none;
-  font-size: 2.5rem;
-  padding: 0.5rem 1rem;
-  cursor: pointer;
-  border-radius: 6px;
-  z-index: 2100;
-}
-
-#prev-btn { left: 10px; }
-#next-btn { right: 10px; }
 </style>
 
 <script>
-let highestZ = 1000;
-let initialized = false;
+document.querySelectorAll(".folder-wrapper").forEach((folder) => {
+  let isDragging = false;
+  let startX = 0;
+  let startY = 0;
+  let offsetX = 0;
+  let offsetY = 0;
 
-function folderGallery() {
-  if (initialized) return;
-  initialized = true;
+  folder.addEventListener("mousedown", (event) => {
+    isDragging = false;
+    startX = event.clientX;
+    startY = event.clientY;
 
-  const folders = document.querySelectorAll('.folder-wrapper');
+    const rect = folder.getBoundingClientRect();
+    offsetX = event.clientX - rect.left;
+    offsetY = event.clientY - rect.top;
 
-  const lightbox = document.getElementById('lightbox-modal');
-  const lightboxImg = document.getElementById('lightbox-img');
-  const lightboxCaption = document.getElementById('lightbox-caption');
-  const nextBtn = document.getElementById('next-btn');
-  const prevBtn = document.getElementById('prev-btn');
-
-  let currentGroup = [];
-  let currentIndex = 0;
-
-  folders.forEach(wrapper => {
-    wrapper.addEventListener('mousedown', (e) => {
-      let isDragging = false;
-
-      const rect = wrapper.getBoundingClientRect();
-      const offsetX = e.clientX - rect.left;
-      const offsetY = e.clientY - rect.top;
-
-      wrapper.style.zIndex = ++highestZ;
-
-      const onMouseMove = (eMove) => {
-        isDragging = true;
-
-        let x = eMove.clientX - offsetX;
-        let y = eMove.clientY - offsetY;
-
-        const maxX = window.innerWidth - wrapper.offsetWidth;
-        const maxY = window.innerHeight - wrapper.offsetHeight;
-
-        x = Math.max(0, Math.min(x, maxX));
-        y = Math.max(0, Math.min(y, maxY));
-
-        wrapper.style.left = `${(x / window.innerWidth) * 100}vw`;
-        wrapper.style.top = `${(y / window.innerHeight) * 100}vh`;
-      };
-
-      const onMouseUp = () => {
-        document.removeEventListener('mousemove', onMouseMove);
-        document.removeEventListener('mouseup', onMouseUp);
-
-        if (!isDragging) {
-          openGallery(wrapper);
-        }
-      };
-
-      document.addEventListener('mousemove', onMouseMove);
-      document.addEventListener('mouseup', onMouseUp);
-    });
-  });
-
-  function openGallery(wrapper) {
-    try {
-      currentGroup = JSON.parse(
-        decodeURIComponent(wrapper.dataset.images || "[]")
+    const mouseMove = (event) => {
+      const distance = Math.sqrt(
+        Math.pow(event.clientX - startX, 2) +
+        Math.pow(event.clientY - startY, 2)
       );
-    } catch {
-      currentGroup = [];
-    }
 
-    if (!currentGroup.length) return;
+      if (distance > 5) {
+        isDragging = true;
+        folder.dataset.dragging = "true";
+      }
 
-    currentIndex = 0;
-    showImage();
-    lightbox.classList.add('active');
-  }
+      if (!isDragging) return;
 
-  function showImage() {
-    const item = currentGroup[currentIndex];
-    if (!item) return;
+      let x = event.clientX - offsetX;
+      let y = event.clientY - offsetY;
 
-    lightboxImg.src = item.src;
-    lightboxCaption.textContent = item.alt || "";
-  }
+      const maxX = window.innerWidth - folder.offsetWidth;
+      const maxY = window.innerHeight - folder.offsetHeight;
 
-  nextBtn?.addEventListener('click', () => {
-    currentIndex = (currentIndex + 1) % currentGroup.length;
-    showImage();
+      x = Math.max(0, Math.min(x, maxX));
+      y = Math.max(0, Math.min(y, maxY));
+
+      folder.style.left = `${x}px`;
+      folder.style.top = `${y}px`;
+    };
+
+    const mouseUp = () => {
+      if (!isDragging) {
+        folder.dataset.dragging = "false";
+      }
+
+      document.removeEventListener("mousemove", mouseMove);
+      document.removeEventListener("mouseup", mouseUp);
+    };
+
+    document.addEventListener("mousemove", mouseMove);
+    document.addEventListener("mouseup", mouseUp);
   });
-
-  prevBtn?.addEventListener('click', () => {
-    currentIndex = (currentIndex - 1 + currentGroup.length) % currentGroup.length;
-    showImage();
-  });
-
-  lightbox?.addEventListener('click', (e) => {
-    if (e.target.id === 'lightbox-modal') {
-      lightbox.classList.remove('active');
-      lightboxImg.src = '';
-    }
-  });
-
-  document.addEventListener('keydown', (e) => {
-    if (!lightbox.classList.contains('active')) return;
-
-    if (e.key === 'ArrowRight') nextBtn?.click();
-    if (e.key === 'ArrowLeft') prevBtn?.click();
-
-    if (e.key === 'Escape') {
-      lightbox.classList.remove('active');
-      lightboxImg.src = '';
-    }
-  });
-}
-
-window.addEventListener('DOMContentLoaded', folderGallery);
+});
 </script>

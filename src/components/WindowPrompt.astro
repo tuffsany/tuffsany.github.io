@@ -2,11 +2,17 @@
 const { startTop = 20, startLeft = 10, title = "Prompt" } = Astro.props;
 ---
 
-<div 
+<div
   class="prompt"
   style={`top: ${startTop}vh; left: ${startLeft}vw;`}
 >
   <div class="prompt-header">
+    <button
+      class="prompt-close"
+      type="button"
+      aria-label="Close window"
+    ></button>
+
     <span class="prompt-title">{title}</span>
   </div>
 
@@ -29,7 +35,7 @@ const { startTop = 20, startLeft = 10, title = "Prompt" } = Astro.props;
 }
 
 .prompt-header {
-  height: 55px;
+  height: 60px;
   background-image: url("/images/ui/prompt-header.png");
   background-size: cover;
   background-repeat: no-repeat;
@@ -39,6 +45,7 @@ const { startTop = 20, startLeft = 10, title = "Prompt" } = Astro.props;
   align-items: center;
   padding: 0 12px;
   cursor: grab;
+  position: relative;
 }
 
 .prompt-header:active {
@@ -50,6 +57,28 @@ const { startTop = 20, startLeft = 10, title = "Prompt" } = Astro.props;
   font-size: 12px;
   margin-left: 65px;
   margin-top: 25px;
+}
+
+.prompt-close {
+  position: absolute;
+  left: 13px;
+  top: 10px;
+  width: 9px;
+  height: 9px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: #e00000;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.prompt-close:hover {
+  background: #ff0000;
+}
+
+.prompt-close:active {
+  background: #a00000;
 }
 
 .prompt-body {
@@ -86,6 +115,7 @@ body.dragging {
 }
 
 @media (max-width: 768px) {
+
   .prompt {
     position: static;
     width: 100%;
@@ -102,39 +132,65 @@ body.dragging {
   .prompt-body.has-image {
     padding-right: 10px;
   }
+
 }
 </style>
 
 <script>
 let highestZ = 1;
 
-document.querySelectorAll('.prompt').forEach((prompt) => {
-  const handle = prompt.querySelector('.prompt-header');
+document.querySelectorAll(".prompt").forEach((prompt) => {
+
+  const handle = prompt.querySelector(".prompt-header");
+  const closeButton = prompt.querySelector(".prompt-close");
 
   let offsetX = 0;
   let offsetY = 0;
   let isDragging = false;
 
+
+  closeButton.addEventListener("click", (e) => {
+
+    e.stopPropagation();
+
+    const container = prompt.closest(".gallery-prompt-container");
+
+    if (container) {
+      container.style.display = "none";
+    } else {
+      prompt.style.display = "none";
+    }
+  });
+
+
   handle.addEventListener("mousedown", (e) => {
+
+    if (e.target.closest(".prompt-close")) {
+      return;
+    }
+
     isDragging = true;
 
     const rect = prompt.getBoundingClientRect();
+
     offsetX = e.clientX - rect.left;
     offsetY = e.clientY - rect.top;
 
     highestZ++;
+
     prompt.style.zIndex = highestZ;
 
     document.body.classList.add("dragging");
   });
 
+
   document.addEventListener("mousemove", (e) => {
+
     if (!isDragging) return;
 
     let x = e.clientX - offsetX;
     let y = e.clientY - offsetY;
 
-    // bounds
     const maxX = window.innerWidth - prompt.offsetWidth;
     const maxY = window.innerHeight - prompt.offsetHeight;
 
@@ -146,12 +202,16 @@ document.querySelectorAll('.prompt').forEach((prompt) => {
 
     prompt.style.left = `${xVW}vw`;
     prompt.style.top = `${yVH}vh`;
+
   });
+
 
   document.addEventListener("mouseup", () => {
+
     isDragging = false;
+
     document.body.classList.remove("dragging");
+
   });
 });
-
 </script>
