@@ -18,12 +18,6 @@ const groups = {
     { src: "https://res.cloudinary.com/dp61tlrci/image/upload/v1776482933/robotics24-1_wqmh0s.jpg", alt: "Team 24124, NTHS Scrimmage" },
   ],
 
-  team26: [
-    { src: "https://res.cloudinary.com/dp61tlrci/image/upload/v1776482937/robotics26-1_x0yxpa.jpg", alt: "Team 26145, Sturgeon Meet 1" },
-    { src: "https://res.cloudinary.com/dp61tlrci/image/upload/v1776482937/robotics26-3_lnwv4w.jpg", alt: "Team 26145, Atlatl Meet 1" },
-    { src: "https://res.cloudinary.com/dp61tlrci/image/upload/v1776482937/robotics26-2_mzqj7z.jpg", alt: "Team 26145, Atlatl Meet 1" }
-  ],
-
   team30: [
     { src: "https://res.cloudinary.com/dp61tlrci/image/upload/v1776482940/robotics30-3_vhradb.jpg", alt: "Team 30645, NTHS Scrimmage" },
     { src: "https://res.cloudinary.com/dp61tlrci/image/upload/v1776482940/robotics30-4_z9ry8q.jpg", alt: "Team 30645, NTHS Scrimmage" },
@@ -34,16 +28,12 @@ const groups = {
 
   robotics: [
     { src: "https://res.cloudinary.com/dp61tlrci/image/upload/v1776482931/robotics-5_effby9.jpg", alt: "Team 22029, Provincial Championships" },
-    { src: "https://res.cloudinary.com/dp61tlrci/image/upload/v1776482930/robotics-4_pw8c6z.jpg", alt: "NTHS Fish Bowl" },
-    { src: "https://res.cloudinary.com/dp61tlrci/image/upload/v1776482930/robotics-3_tgtjbk.jpg", alt: "NTHS Fish Bowl" },
-    { src: "https://res.cloudinary.com/dp61tlrci/image/upload/v1776482930/robotics-2_uqkvac.jpg", alt: "NTHS Fish Bowl" },
     { src: "https://res.cloudinary.com/dp61tlrci/image/upload/v1776482930/robotics-1_zlrwsh.jpg", alt: "Team 22029, Provincial Championships" },
     { src: "https://res.cloudinary.com/dp61tlrci/image/upload/v1776482931/robotics-6_lpo5l9.jpg", alt: "NTHS Scrimmage" },
     { src: "https://res.cloudinary.com/dp61tlrci/image/upload/v1776482931/robotics-7_vdwbgl.jpg", alt: "Team 27015, Provincial Championships" },
     { src: "https://res.cloudinary.com/dp61tlrci/image/upload/v1776482931/robotics-8_k3xmab.jpg", alt: "Team 5009, NTHS Scrimmage" },
     { src: "https://res.cloudinary.com/dp61tlrci/image/upload/v1776482932/robotics-9_nnxsky.jpg", alt: "Team 7277, NTHS Scrimmage" },
     { src: "https://res.cloudinary.com/dp61tlrci/image/upload/v1776482932/robotics-10_v6sw9w.jpg", alt: "Team 21595, Provincial Championships" },
-    { src: "https://res.cloudinary.com/dp61tlrci/image/upload/v1776482933/robotics-11_igbz4q.jpg", alt: "Bingle" }
   ],
 
   cars: [
@@ -56,7 +46,21 @@ const groups = {
     { src: "https://res.cloudinary.com/dp61tlrci/image/upload/v1789146854/IMG_9046_q44eti.jpg", alt: "Nissan GT-R R33"},
     { src: "https://res.cloudinary.com/dp61tlrci/image/upload/v1789146877/IMG_7326_bee3ct.jpg", alt: "Honda CRX Si"},
     { src: "https://res.cloudinary.com/dp61tlrci/image/upload/v1789591011/IMG_9521_tsny5r.jpg", alt: "Koeniggsigg Jesko Attack"},
-    { src: "https://res.cloudinary.com/dp61tlrci/image/upload/v1789591012/IMG_9714_o9ppvi.jpg", alt: "Jesko Detail"}
+    { src: "https://res.cloudinary.com/dp61tlrci/image/upload/v1789591012/IMG_9714_o9ppvi.jpg", alt: "Jesko Detail"},
+    { src: "https://res.cloudinary.com/dp61tlrci/image/upload/v1790385638/IMG_9563_nynbj5.jpg", alt: "Audi R8"}
+  ],
+
+  north_star: [
+    { src: "https://res.cloudinary.com/dp61tlrci/image/upload/v1790385804/Artboard_2_14_svif19.png", alt: "2025 Jersey Designs"},
+    { src: "https://res.cloudinary.com/dp61tlrci/image/upload/v1790385805/Artboard_2_15_wku421.png", alt: "General Identity"},
+    { src: "https://res.cloudinary.com/dp61tlrci/image/upload/v1790385805/Artboard_2_16_ofg2tm.png", alt: "Pit Infographics"},
+    { src: "https://res.cloudinary.com/dp61tlrci/image/upload/v1790385805/Artboard_2_17_vp3piz.png", alt: "Team Brochure"},
+    { src: "https://res.cloudinary.com/dp61tlrci/image/upload/v1790385805/Artboard_2_20_cdcdse.png", alt: "Social Media Identity"},
+    { src: "https://res.cloudinary.com/dp61tlrci/image/upload/v1790385805/Artboard_2_18_hjscgo.png", alt: "Engineering Portfolio"},
+    { src: "https://res.cloudinary.com/dp61tlrci/image/upload/v1790385805/Artboard_2_22_iuv6lv.png", alt: "Information Posts"},
+    { src: "https://res.cloudinary.com/dp61tlrci/image/upload/v1790385805/Artboard_2_21_h0jb98.png", alt: "Team Event Posts"},
+    { src: "https://res.cloudinary.com/dp61tlrci/image/upload/v1790385807/Artboard_2_23_qnprzj.png", alt: "Team Event Posts 2"}
+
   ]
 };
 
@@ -66,13 +70,6 @@ const folderData = {
     items: groups.team24,
     top: 15,
     left: 25
-  },
-
-  team26: {
-    title: "Team 26145",
-    items: groups.team26,
-    top: 20,
-    left: 30
   },
 
   team30: {
@@ -94,11 +91,18 @@ const folderData = {
     items: groups.cars,
     top: 10,
     left: 45
+  },
+
+  north_star:{
+    title: "North Star",
+    items: groups.north_star,
+    top: 11,
+    left: 49
   }
 };
 ---
 
-<BaseLayout title="The Gallery.">
+<BaseLayout title="The Gallery ꒰১ ໒꒱">
   <div id="page">
     <Header />
     <div id="content">
@@ -109,14 +113,6 @@ const folderData = {
           group="team24"
           startTop={10}
           startLeft={5}
-        />
-
-        <Folder
-          title="Team 26145"
-          fullGroupItems={groups.team26}
-          group="team26"
-          startTop={14}
-          startLeft={10}
         />
 
         <Folder
@@ -141,6 +137,14 @@ const folderData = {
           group="cars"
           startTop={16}
           startLeft={67}
+        />
+
+        <Folder
+          title="North Star"
+          fullGroupItems={groups.north_star}
+          group="north_star"
+          startTop={19}
+          startLeft={80}
         />
 
         <div class="mainText">
